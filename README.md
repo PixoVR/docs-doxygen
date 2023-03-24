@@ -14,3 +14,9 @@ In the `documentation/docs-doxygen` folder, run the `setup_submodule.sh` script 
  - Add your SDK to the `docs-root` repository, with this submodule added and committed.
  - Link the CI/CD tools with the `main` repository of your SDK, and make sure documentation changes are merged into the `main` branch.
 
+Please note that you really don't want to change the contents of this submodule for any individual implementation.
+The `setup_submodule.sh` makes copies of scripts, files, and folders needed to customize any individual documentation implemnentation.
+
+The intention is to be able to globally change colors, skin, functionality, theme, etc, and republish all documentation as needed
+without having to modify any individual documentation set.
+
