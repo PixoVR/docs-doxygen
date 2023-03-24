@@ -1,4 +1,6 @@
-# doxygen submodule, for inclusion in other SDKs to document them.
+# docs-doxygen 
+
+Doxygen submodule for inclusion in SDKs that want documentation published using docs-root.
 
 To use this, create a `documentation` folder at the root of your SDK (sub)module.
 
@@ -11,6 +13,4 @@ In the `documentation/docs-doxygen` folder, run the `setup_submodule.sh` script 
  - Do a build with `./build.sh`, and view the documentation in the `html` folder.
  - Add your SDK to the `docs-root` repository, with this submodule added and committed.
  - Link the CI/CD tools with the `main` repository of your SDK, and make sure documentation changes are merged into the `main` branch.
-
-
 
