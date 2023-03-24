@@ -52,6 +52,11 @@ html.dark-mode .icona .icon
 	color: var(--page-background-color);
 }
 
+#titlearea
+{
+	padding: 2px var(--spacing-large) 0px var(--spacing-large);
+}
+
 #projectswitcher
 {
 	font-family: var(--font-family);

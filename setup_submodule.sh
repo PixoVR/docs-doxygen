@@ -7,28 +7,44 @@ prefix() {
 	cat - | perl -pe "s/^(.+)$/   \1/"
 }
 
-echo "Copying build.sh..."
-cp -v setup_template/build.sh ../ | prefix
-echo
+if [ -f "../build.sh" ]; then
+	echo "Skipping existing build.sh..."
+else
+	echo "Copying build.sh..."
+	cp -v setup_template/build.sh ../ | prefix
+fi
 
-echo "Copying env.sh... You must modify/update this file for your implementation."
-cp -v setup_template/env_template.sh ../env.sh | prefix
-echo
+if [ -f "../env.sh" ]; then
+	echo "Skipping existing env.sh..."
+else
+	echo "Copying env.sh... You must modify/update this file for your implementation."
+	cp -v setup_template/env_template.sh ../env.sh | prefix
+fi
 
-echo "Copying docker folder..."
-cp -rv setup_template/docker ../ | prefix
-echo
+if [ -d "../docker" ]; then
+	echo "Skipping existing docker/ folder..."
+else
+	echo "Copying docker folder..."
+	cp -rv setup_template/docker ../ | prefix
+fi
 
-echo "Creating examples folder..."
-cp -rv setup_template/examples ../ | prefix
-echo
+if [ -d "../examples" ]; then
+	echo "Skipping existing examples/ folder..."
+else
+	echo "Creating examples folder..."
+	cp -rv setup_template/examples ../ | prefix
+fi
 
-echo "Creating pages folder..."
-cp -rv setup_template/pages ../ | prefix
-echo
+if [ -d "../pages" ]; then
+	echo "Skipping existing pages/ folder..."
+else
+	echo "Creating pages folder..."
+	cp -rv setup_template/pages ../ | prefix
+	echo
 
-echo "Softlinking existing markdown files into pages... "
-find ../.. -maxdepth 1 -name "*md" -exec ln -sv {} ../pages/ \; 2>&1 | prefix
-echo
+	echo "Softlinking existing markdown files into pages... "
+	find ../.. -maxdepth 1 -name "*md" -exec ln -sv {} ../pages/ \; 2>&1 | prefix
+fi
+
 
 

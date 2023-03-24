@@ -916,7 +916,7 @@ WARN_LOGFILE           =
 #                         docs/extensions.md \
 #                         docs/customization.md \
 #                         docs/tricks.md
-INPUT			= pages \
+INPUT			= ../pages \
 			  $(DOXYGEN_INPUT)
 
 # This tag can be used to specify the character encoding of the source files
@@ -1111,8 +1111,8 @@ INPUT_FILTER           = $(DOXYGEN_FILTER)
 # need to set EXTENSION_MAPPING for the extension otherwise the files are not
 # properly processed by doxygen.
 
-FILTER_PATTERNS       = *.js=../scripts/javascriptFilter.bash \
-			*.md=../scripts/markdownFilter.bash
+FILTER_PATTERNS       = *.js=scripts/javascriptFilter.bash \
+			*.md=scripts/markdownFilter.bash
 
 # If the FILTER_SOURCE_FILES tag is set to YES, the input filter (if set using
 # INPUT_FILTER) will also be used to filter the input files that are used for
