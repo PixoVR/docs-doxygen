@@ -4,9 +4,11 @@ Doxygen submodule for inclusion in SDKs that want documentation published using 
 
 To use this, create a `documentation` folder at the root of your SDK (sub)module.
 
-In the `documentation` folder, clone this repository, so now you have `documentation/docs-doxygen`.
+In the `documentation` folder, clone this repository:
 
-You probably want to set the submodule remote branch to `main`, or rather, don't change the branch.
+`git clone --recurse-submodules --remote-submodules git@github.com:PixoVR/docs-doxygen.git`
+
+now you have `documentation/docs-doxygen`.
 
 In the `documentation/docs-doxygen` folder, run the `setup_submodule.sh` script to initialize folders and copy templates.
 
