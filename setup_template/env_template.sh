@@ -14,5 +14,5 @@ export DOXYGEN_INPUT='../../src "../../Folder With Spaces"'		# a list of input f
 export DOXYGEN_STRIP_FROM_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../Path/To/Base" && pwd)"	# the full absolute path to the root folder to be removed during publish.  This is kind of cosmetic but also less confusing.
 export DOXYGEN_IGNORE_PREFIX=''						# a class/method prefix to be ignored.  For instance if everything is pApexSDK, mMatrix, etc, the ignore prefix may want to be "p\nm" where the list is a space-separated list of prefixes.  The ignore order matters!
 
-# user variables.  Useful when writing pages that refer to other urls, but don't want to hardcode them in.
-export APEX_SERVER_URL='https://apex.pixovr.com'
+# user variables.  Useful when writing pages that refer to other urls, but don't want to hardcode them in.  For instance, use `$(APEX_SERVER_URL)` in a markdown page to resolve the variable reference.
+#export APEX_SERVER_URL='https://apex.pixovr.com'
