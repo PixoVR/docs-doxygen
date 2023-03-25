@@ -6,6 +6,8 @@ To use this, create a `documentation` folder at the root of your SDK (sub)module
 
 In the `documentation` folder, clone this repository, so now you have `documentation/docs-doxygen`.
 
+You probably want to set the submodule remote branch to `main`, or rather, don't change the branch.
+
 In the `documentation/docs-doxygen` folder, run the `setup_submodule.sh` script to initialize folders and copy templates.
 
  - Modify the `env.sh` file as needed.
