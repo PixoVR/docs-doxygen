@@ -112,4 +112,8 @@ iframe
 	filter: hue-rotate(180deg);
 }
 
-
+div.contents, div.header .title, div.header .summary
+{
+	Xmax-width: var(--content-maxwidth);
+	max-width: unset;
+}
