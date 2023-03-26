@@ -54,7 +54,7 @@ html.dark-mode .icona .icon
 
 #titlearea
 {
-	padding: 7px var(--spacing-large) 7px var(--spacing-large);
+	padding: 0px var(--spacing-large) 2px var(--spacing-large);
 }
 
 #projectswitcher
