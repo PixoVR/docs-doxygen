@@ -28,14 +28,15 @@ if file.closed:
     sys.exit(1)
 content = file.read()
 
-macros = "UCLASS|UENUM|UINTERFACE|USTRUCT|UFUNCTION|UPROPERTY"
+macros = "UCLASS|UENUM|UINTERFACE|USTRUCT|UFUNCTION|UPROPERTY" # todo: |IMPLEMENT_MODULE|IMPLEMENT_GAME_MODULE"
 
 def makeQualifier(match):
 	#print(match)
 	macro = match.group(2)
-	parts = re.match(r'('+macros+')\(((?:[^\s]+[,\s]*)*)\)',macro,re.M)
+	parts = re.match(r'('+macros+')\(\s*((?:[^\s]+[,\s]*)*)\s*\)',macro,re.M)
 	#parts = re.match(r'('+macros+')\((.*)\)',macro,re.M)
 	qualifier = ""
+	#print(parts)
 	if parts is None:
 		#qualifier = "bad regex for %s" % (macro)
 		return match.group(0)
@@ -50,9 +51,12 @@ def makeQualifier(match):
 		#print(q, file=sys.stderr)
 		q = re.sub('([\w]*)\s*=',r'"\1":',q)
 		#print(q, file=sys.stderr)
+		q = re.sub('(\"[^:][^"]+\")([^:])',r'"STRING"\2',q)
+		#print(q, file=sys.stderr)
 		q = re.sub('([\w]+)\s*(,|$)',r'"\1":null\2',q)
 		#print(q, file=sys.stderr)
 		q = '{'+q+'}'
+		#print(filename, file=sys.stderr)
 		#print(q, file=sys.stderr)
 		j = json.loads(q)
 		#print(j)
