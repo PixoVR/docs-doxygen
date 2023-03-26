@@ -7,6 +7,12 @@ prefix() {
 	cat - | perl -pe "s/^(.+)$/   \1/"
 }
 
+if [ -f "../.gitignore" ]; then
+	echo "Skipping existing .gitignore..."
+else
+	echo "Copying .gitignore..."
+	cp -v setup_template/.gitignore ../ | prefix
+
 if [ -f "../build.sh" ]; then
 	echo "Skipping existing build.sh..."
 else
