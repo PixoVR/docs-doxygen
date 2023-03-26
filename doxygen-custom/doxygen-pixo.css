@@ -58,6 +58,11 @@ html.dark-mode .icona .icon
 	min-height: 69px;
 }
 
+#titlearea table
+{
+	min-height: 69px;
+}
+
 #projectswitcher
 {
 	font-family: var(--font-family);
