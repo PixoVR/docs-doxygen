@@ -12,6 +12,7 @@ if [ -f "../.gitignore" ]; then
 else
 	echo "Copying .gitignore..."
 	cp -v setup_template/.gitignore ../ | prefix
+fi
 
 if [ -f "../build.sh" ]; then
 	echo "Skipping existing build.sh..."
