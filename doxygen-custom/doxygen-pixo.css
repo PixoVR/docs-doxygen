@@ -54,7 +54,7 @@ html.dark-mode .icona .icon
 
 #titlearea
 {
-	padding: 2px var(--spacing-large) 0px var(--spacing-large);
+	padding: 7px var(--spacing-large) 7px var(--spacing-large);
 }
 
 #projectswitcher
@@ -104,6 +104,11 @@ html.dark-mode .icona .icon
 {
 	position: relative;
 	top: 6px;
+}
+
+#projectbrief
+{
+	line-height: 16px;
 }
 
 iframe
