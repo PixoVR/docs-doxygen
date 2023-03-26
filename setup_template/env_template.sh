@@ -1,7 +1,7 @@
 #!/bin/bash
 
 export PROJECT_NAME='Name of project'					# should be short enough to fit on the documentation page
-export PROJECT_VERSION=`git tag | tail -n 1`				# the last tagged version
+export PROJECT_VERSION=`cd ../; git tag | tail -n 1`			# the last tagged version
 export PROJECT_BRIEF='Documentation for the Xyzproject C++ Library'	# a brief description of the SDK or module
 export PROJECT_LOGO='docs-doxygen/doxygen-custom/defaultIcon.png'	# an icon for the submodule, or 'docs-doxygen/doxygen-custom/defaultIcon.png'.  Path is relative to the folder containing `build.sh`.
 export PROJECT_REPO='https://github.com/PixoVR/somerepo'		# the project repo url, for cloning
