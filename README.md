@@ -6,7 +6,7 @@ To use this, create a `documentation` folder at the root of your SDK (sub)module
 
 In the `documentation` folder, clone this repository:
 
-`git clone --recurse-submodules --remote-submodules git@github.com:PixoVR/docs-doxygen.git`
+`git submodule add git@github.com:PixoVR/docs-doxygen.git`
 
 now you have `documentation/docs-doxygen`.
 
