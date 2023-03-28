@@ -22,6 +22,7 @@ debug=False
 
 # Get the filename from args
 filename = sys.argv[1]
+
 if debug: print("File: "+filename, file=sys.stderr)
 
 # Slurp file into a single string
@@ -34,12 +35,12 @@ content = file.read()
 macros = "UCLASS|UENUM|UINTERFACE|USTRUCT|UFUNCTION|UPROPERTY" # todo: |IMPLEMENT_MODULE|IMPLEMENT_GAME_MODULE"
 
 def makeQualifier(match):
-	if debug: print(match)
+	#if debug: print(match)
 	macro = match.group(2)
 	parts = re.match(r'('+macros+')\(\s*((?:[^\s]+[,\s]*)*)\s*\)',macro,re.M)
 	#parts = re.match(r'('+macros+')\((.*)\)',macro,re.M)
 	qualifier = ""
-	if debug: print(parts)
+	#if debug: print(parts)
 	if parts is None:
 		#qualifier = "bad regex for %s" % (macro)
 		return match.group(0)
@@ -52,7 +53,8 @@ def makeQualifier(match):
 		if debug: print(q, file=sys.stderr)
 		q = re.sub('=\s*([^",]+)\s*(,|$)',r'="\1"\2',q)
 		if debug: print(q, file=sys.stderr)
-		q = re.sub('(\"[^:][^"]+\")([^:])',r'"STRING"\2',q)
+		#q = re.sub('(\"[^:][^"]+\")([^:])',r'"STRING"\2',q)
+		q = re.sub('(\"[^:][^"]+\")',r'"STRING"',q)
 		if debug: print(q, file=sys.stderr)
 		q = re.sub('([\w]*)\s*=',r'"\1":',q)
 		if debug: print(q, file=sys.stderr)
