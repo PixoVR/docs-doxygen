@@ -43,6 +43,11 @@ function buildDocMenu(items,status,xhr)
 		o.text(option.name);
 		menu.append( o );
 	} );
+
+	if (status == "success")
+		$('#projectswitcher').select2({
+			minimumResultsForSearch: Infinity
+		});
 }
 
 function buildDocMenuError(xhr,status,errorThrown)

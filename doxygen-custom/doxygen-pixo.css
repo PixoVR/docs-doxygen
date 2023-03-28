@@ -63,6 +63,7 @@ html.dark-mode .icona .icon
 	min-height: 69px;
 }
 
+.select2,
 #projectswitcher
 {
 	font-family: var(--font-family);
@@ -86,6 +87,7 @@ html.dark-mode .icona .icon
 	margin: 0px;
 }
 
+.select2:hover,
 #projectswitcher:hover
 {
 	background: var(--page-background-color);
@@ -93,15 +95,18 @@ html.dark-mode .icona .icon
 	border: 1px solid var(--separator-color);
 	border-image: initial;
 
-	box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+	#box-shadow: 3px 3px 5px rgba(0, 0, 0, 0.3);
+	box-shadow: 5px 5px 5px rgba(0,0,0,.3);
 }
 
+.select2:active,
 #projectswitcher:active
 {
 	#font-size: var(--page-font-size);
-	outline: 1px solid red;
+	outline: 1px solid var(--page-background-color);
 }
 
+.select2:focus,
 #projectswitcher:focus
 {
 	outline: none;
@@ -138,4 +143,49 @@ div.contents, div.header .title, div.header .summary
 {
 	Xmax-width: var(--content-maxwidth);
 	max-width: unset;
+}
+
+.select2-container
+{
+	box-sizing: unset;
+	z-index: 10000;
+}
+
+.select2-container--default .select2-selection--single .select2-selection__rendered {
+	color: inherit;
+	line-height: inherit;
+	padding-left: 2px;
+	padding-top: 2px;
+	overflow: unset;
+}
+
+.select2-container--default .select2-selection--single {
+	background-color: inherit;
+	border: inherit;
+	border-radius: inherit;
+}
+
+.select2-container--open {
+	background-color: var(--page-background-color);
+	border-radius: 15px 15px 0px 0px;
+	border-color: var(--separator-color);
+	box-shadow: 5px 5px 5px rgba(0,0,0,.3);
+}
+
+.select2-dropdown {
+	background-color: var(--page-background-color);
+	border: 1px solid var(--separator-color);
+	border-radius: 4px;
+	box-sizing: border-box;
+	display: block;
+	position: absolute;
+	left: -100000px;
+	width: 100%;
+	z-index: 1051;
+	box-shadow: 5px 5px 5px rgba(0,0,0,.3);
+}
+
+.select2-container--default .select2-results__option--selected {
+	background-color: var(--page-foreground-color);
+	color: var(--page-background-color);
 }

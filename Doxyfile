@@ -1391,6 +1391,8 @@ HTML_EXTRA_FILES       = doxygen-awesome-darkmode-toggle.js \
                          doxygen-awesome-interactive-toc.js \
                          doxygen-awesome-tabs.js \
                          doxygen-custom/headermenu.js \
+                         doxygen-custom/select2.min.js \
+                         doxygen-custom/select2.min.css \
                          favicon.png
 
 # The HTML_COLORSTYLE tag can be used to specify if the generated HTML output
