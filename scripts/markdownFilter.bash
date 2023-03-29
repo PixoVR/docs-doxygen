@@ -10,6 +10,10 @@ PAGETITLE=`head -n 5 "$1" | grep -E "^#\\s" | head -n 1 | perl -pe "s/^#\\s(.*)/
 [[ -z "$PAGEDEF" ]] && echo -e "\\page $FILENAME $PAGETITLE\n"
 #[[ -z "$PAGEDEF" ]] && echo -e "\\defgroup $FILENAME $FILENAME\n@{\n\\ingroup pages\n"
 
+# add an author?  This is tricky because it wants a context, and different languages are different.
+#echo "/** \author " `cd ../../; git log --format='%an' -n 1 $1` " */"
+#echo
+
 [[ -z "$PAGEDEF" ]] && awk '!/# / || f++' "$1" || cat "$1"
 
 #[[ -z "$PAGEDEF" ]] && echo -e "\n@}\n"
