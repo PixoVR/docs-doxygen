@@ -201,3 +201,9 @@ div.contents, div.header .title, div.header .summary
 	background-color: var(--page-foreground-color);
 	color: var(--page-background-color);
 }
+
+.footer .emphasize
+{
+	color: var(--page-foreground-color);
+	#font-weight: bold;
+}
