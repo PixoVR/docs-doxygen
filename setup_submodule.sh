@@ -50,8 +50,8 @@ else
 	echo
 
 	echo "Softlinking existing markdown files into pages... "
-	find ../.. -maxdepth 1 -name "*md" -exec ln -sv {} ../pages/ \; 2>&1 | prefix
-	find ../.. -maxdepth 1 -name "*MD" -exec ln -sv {} ../pages/ \; 2>&1 | prefix
+	find ../.. -maxdepth 1 -name "*.md" -exec ln -sv {} ../pages/ \; 2>&1 | prefix
+	find ../.. -maxdepth 1 -name "*.MD" -exec ln -sv {} ../pages/ \; 2>&1 | prefix
 fi
 
 
