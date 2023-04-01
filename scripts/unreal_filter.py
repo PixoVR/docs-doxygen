@@ -54,7 +54,7 @@ def makeQualifier(match):
 		q = re.sub('=\s*([^",]+)\s*(,|$)',r'="\1"\2',q)
 		if debug: print(q, file=sys.stderr)
 		#q = re.sub('(\"[^:][^"]+\")([^:])',r'"STRING"\2',q)
-		q = re.sub('(\"[^:][^"]+\")',r'"STRING"',q)
+		q = re.sub('(\"[^:,]?[^",]+\")',r'"STRING"',q)
 		if debug: print(q, file=sys.stderr)
 		q = re.sub('([\w]*)\s*=',r'"\1":',q)
 		if debug: print(q, file=sys.stderr)
