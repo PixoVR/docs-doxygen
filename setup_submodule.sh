@@ -25,14 +25,14 @@ if [ -f "../env.sh" ]; then
 	echo "Skipping existing env.sh..."
 else
 	echo "Copying env.sh... You must modify/update this file for your implementation."
-	cp -v setup_template/env_template.sh ../env.sh | prefix
+	cp -v setup_template/env.sh ../env.sh | prefix
 fi
 
-if [ -d "../docker" ]; then
-	echo "Skipping existing docker/ folder..."
+if [ -f "../Dockerfile" ]; then
+	echo "Skipping existing Dockerfile..."
 else
-	echo "Copying docker folder..."
-	cp -rv setup_template/docker ../ | prefix
+	echo "Copying Dockerfile..."
+	cp -v Dockerfile ../ | prefix
 fi
 
 if [ -d "../examples" ]; then

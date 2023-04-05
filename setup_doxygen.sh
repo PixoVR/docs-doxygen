@@ -28,3 +28,7 @@ echo "Doxygen version: `doxygen -v`"
 # because windows fileshares don't always keep permissions
 chmod 755 scripts/* 
 
+# nginx
+#cp nginx.conf /etc/nginx/		# copied in docs-doxygen/Dockerfile.  Don't copy it here.
+#rm /etc/nginx/conf.d/default.conf	# done in Dockerfile
+
