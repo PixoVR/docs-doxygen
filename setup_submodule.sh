@@ -32,14 +32,14 @@ if [ -f "../Dockerfile" ]; then
 	echo "Skipping existing Dockerfile..."
 else
 	echo "Copying Dockerfile..."
-	cp -v Dockerfile ../ | prefix
+	cp -v setup_template/Dockerfile ../ | prefix
 fi
 
 if [ -f "../Makefile" ]; then
 	echo "Skipping existing Makefile..."
 else
 	echo "Copying Makefile..."
-	cp -v Makefile ../ | prefix
+	cp -v setup_template/Makefile ../ | prefix
 fi
 
 if [ -d "../examples" ]; then
