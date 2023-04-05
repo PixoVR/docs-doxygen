@@ -12,8 +12,8 @@ cd doxygen
 mkdir build
 cd build
 cmake -G "Unix Makefiles" ..
-make
-#make -j
+#make
+make -j
 
 # print version
 ./bin/doxygen -v
