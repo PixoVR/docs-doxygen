@@ -31,8 +31,8 @@ fi
 if [ -f "../Dockerfile" ]; then
 	echo "Skipping existing Dockerfile..."
 else
-	echo "Copying Dockerfile..."
-	cp -v Dockerfile ../ | prefix
+	echo "Linking Dockerfile..."
+	ln -s Dockerfile ../ | prefix
 fi
 
 if [ -d "../examples" ]; then
