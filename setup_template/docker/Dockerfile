@@ -1,18 +1,13 @@
 
-FROM	nginx AS builder
+FROM	docs-docker-base as builder
 
 MAINTAINER Chris Healer "chris.healer@pixovr.com"
-
-RUN	apt-get update && \
-	apt-get install -y graphviz python3 git
 
 WORKDIR	/build
 
 COPY	. .
 
-RUN	cp documentation/docs-doxygen/doxygen-build-1.9.7/linux/doxygen /usr/local/bin/doxygen && \
-	chmod 777 /usr/local/bin/doxygen && \
-	doxygen -v
+RUN	doxygen -v	# confirm doxygen version from docs-docker-base
 
 RUN	chmod 755 ./documentation/docs-doxygen/scripts/* && \
 	./documentation/build.sh
@@ -20,8 +15,9 @@ RUN	chmod 755 ./documentation/docs-doxygen/scripts/* && \
 FROM	nginx:1.23.3-alpine
 
 COPY	documentation/docker/nginx.conf /etc/nginx/
-RUN	rm /etc/nginx/conf.d/default.conf
+#RUN	rm /etc/nginx/conf.d/default.conf
 
 COPY	--from=builder /build/documentation/html/ /var/www/html
 
-
+ENTRYPOINT ["/docker-entrypoint.sh"]
+CMD	["nginx", "-g", "daemon off;"]
