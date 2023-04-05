@@ -15,10 +15,16 @@ cmake -G "Unix Makefiles" ..
 make
 #make -j	# unstable!:
 
-# print version
-./bin/doxygen -v
+#ln -s $PWD/bin/doxygen /usr/local/bin/doxygen
+cp bin/doxygen /usr/local/bin/doxygen
 
 cd $DIR
 
+# delete build folder
+rm -rfv doxygen
+
+echo "Doxygen version: `doxygen -v`"
+
+# because windows fileshares don't always keep permissions
 chmod 755 scripts/* 
 
