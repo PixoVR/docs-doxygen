@@ -31,15 +31,15 @@ fi
 if [ -f "../Dockerfile" ]; then
 	echo "Skipping existing Dockerfile..."
 else
-	echo "Linking Dockerfile..."
-	ln -s Dockerfile ../ | prefix
+	echo "Copying Dockerfile..."
+	cp -v Dockerfile ../ | prefix
 fi
 
 if [ -f "../Makefile" ]; then
 	echo "Skipping existing Makefile..."
 else
-	echo "Linking Makefile..."
-	ln -s Makefile ../ | prefix
+	echo "Copying Makefile..."
+	cp -v Makefile ../ | prefix
 fi
 
 if [ -d "../examples" ]; then
