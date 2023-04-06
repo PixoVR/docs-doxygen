@@ -1,5 +1,6 @@
 
-FROM	docs-docker-base
+#FROM	docs-docker-base
+FROM	gcr.io/pixo-bootstrap/docs-docker-base:latest
 
 WORKDIR	/build
 
