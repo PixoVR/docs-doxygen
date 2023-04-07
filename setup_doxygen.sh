@@ -12,8 +12,8 @@ cd doxygen
 mkdir build
 cd build
 cmake -G "Unix Makefiles" ..
-make
-#make -j	# unstable!:
+#make
+make -j	# unstable!
 
 #ln -s $PWD/bin/doxygen /usr/local/bin/doxygen
 cp bin/doxygen /usr/local/bin/doxygen
