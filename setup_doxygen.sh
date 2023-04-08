@@ -13,7 +13,7 @@ mkdir build
 cd build
 cmake -G "Unix Makefiles" ..
 #make
-make -j	# unstable!
+make -j	# unstable on some configurations!
 
 #ln -s $PWD/bin/doxygen /usr/local/bin/doxygen
 cp bin/doxygen /usr/local/bin/doxygen
@@ -21,7 +21,7 @@ cp bin/doxygen /usr/local/bin/doxygen
 cd $DIR
 
 # delete build folder
-rm -rfv doxygen
+rm -rf doxygen
 
 echo "Doxygen version: `doxygen -v`"
 
