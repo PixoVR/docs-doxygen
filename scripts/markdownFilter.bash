@@ -8,7 +8,7 @@ FILEDIR=`dirname "$INFILE"`
 
 #DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
-LINES=$((0+`cat $INFILE | wc -l`))
+LINES=$((0+`cat "$INFILE" | wc -l`))
 #echo lines: $LINES
 
 # the case for a softlink that was incorrectly resolved somewhere in the git hydration process,
