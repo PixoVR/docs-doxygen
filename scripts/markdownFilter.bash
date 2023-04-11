@@ -15,7 +15,7 @@ LINES=$((0+`cat $INFILE | wc -l`))
 # and was committed back as a single line pointing to its resolved link.
 if (("$LINES" < "2"));
 then
-	INFILE=$FILEDIR/`cat $1`
+	INFILE=$FILEDIR/`cat "$1"`
 	#echo $INFILE;
 fi
 
