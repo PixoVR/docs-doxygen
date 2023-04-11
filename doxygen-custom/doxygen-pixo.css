@@ -202,6 +202,10 @@ div.contents, div.header .title, div.header .summary
 	color: var(--page-background-color);
 }
 
+.select2-container--default .select2-results>.select2-results__options {
+	max-height: 300px;
+}
+
 .footer .emphasize
 {
 	color: var(--page-foreground-color);
