@@ -33,7 +33,7 @@ if file.closed:
     sys.exit(1)
 content = file.read()
 
-macros = "UCLASS|UENUM|UINTERFACE|USTRUCT|UFUNCTION|UPROPERTY" # todo: |IMPLEMENT_MODULE|IMPLEMENT_GAME_MODULE"
+macros = "UCLASS|UENUM|UINTERFACE|USTRUCT|UFUNCTION|UPROPERTY|UMETA" # todo: |IMPLEMENT_MODULE|IMPLEMENT_GAME_MODULE"
 
 def makeQualifier(match):
 	#if debug: print(match)
