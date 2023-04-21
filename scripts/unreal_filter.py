@@ -114,7 +114,7 @@ def makeMetas(match):
 		if debug: print("===========")
 		if debug: print(j)
 		for i in j:
-			output += i+": \""+j[i]+"\""
+			output += "*"+i+"*: \"**"+j[i]+"**\""
 
 	return "%s/** %s **/" % (match.group(1), output)
 
