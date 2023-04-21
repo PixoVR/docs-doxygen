@@ -33,11 +33,14 @@ if file.closed:
     sys.exit(1)
 content = file.read()
 
-macros = "UCLASS|UENUM|UINTERFACE|USTRUCT|UFUNCTION|UPROPERTY|UMETA" # todo: |IMPLEMENT_MODULE|IMPLEMENT_GAME_MODULE"
+macros = "UCLASS|UENUM|UINTERFACE|USTRUCT|UFUNCTION|UPROPERTY" # todo: |IMPLEMENT_MODULE|IMPLEMENT_GAME_MODULE"
+macros2 = "UMETA"
 
-def makeQualifier(match):
+def makeQualifiers(match):
+	debug = False
 	#if debug: print(match)
 	macro = match.group(2)
+	if debug: print(macro)
 	parts = re.match(r'('+macros+')\(\s*((?:[^\s]+[,\s]*)*)\s*\)',macro,re.M)
 	#parts = re.match(r'('+macros+')\((.*)\)',macro,re.M)
 	qualifier = ""
@@ -76,11 +79,56 @@ def makeQualifier(match):
 
 	return "%s/**\n\t\\brief **%s**\n%s*/" % (match.group(1), match.group(2), qualifier)
 
-# Do a regular expression to replace all UE4 macros, include balanced params
-regex = '^(\s*)((?:'+macros+')\s*\('+paren_matcher(25)+'\))'
 
-#content = re.sub(regex, r'\1/** \\details **\2** */', content, flags=re.MULTILINE)
-content = re.sub(regex, makeQualifier, content, flags=re.MULTILINE)
+def makeMetas(match):
+	if debug: print(match)
+	macro = match.group(2)
+	if debug: print(macro)
+	parts = re.match(r'('+macros2+')\(\s*((?:[^\s]+[,\s]*)*)\s*\)',macro,re.M)
+	output = ""
+	#if debug: print(parts)
+	if parts is None:
+		#qualifier = "bad regex for %s" % (macro)
+		return match.group(0)
+	else:
+		q = parts.group(2)
+		q = re.sub('\(','{',q)
+		q = re.sub('\)','}',q)
+		if debug: print(q, file=sys.stderr)
+		q = re.sub('=\s*([^",]+)\s*(,|$)',r'="\1"\2',q)
+		if debug: print(q, file=sys.stderr)
+		#q = re.sub('(\"[^:][^"]+\")([^:])',r'"STRING"\2',q)
+		#q = re.sub('(\"[^:,]?[^",]+\")',r'"STRING"',q)
+		#q = re.sub('(\"[^:,]?[^"]+\")',r'"STRING"',q)
+		#if debug: print(q, file=sys.stderr)
+		q = re.sub('([\w]*)\s*=',r'"\1":',q)
+		if debug: print(q, file=sys.stderr)
+		q = re.sub('([\w]+)\s*(}|,|$)',r'"\1":null\2',q)
+		if debug: print(q, file=sys.stderr)
+		q = re.sub('(/\*.*\*/)','',q);
+		if debug: print(q, file=sys.stderr)
+		q = '{'+q+'}'
+		#print(filename, file=sys.stderr)
+		if debug: print(q, file=sys.stderr)
+		j = json.loads(q)
+		if debug: print("===========")
+		if debug: print(j)
+		for i in j:
+			output += i+": \""+j[i]+"\""
+
+	return "%s/** %s **/" % (match.group(1), output)
+
+
+# Do a regular expression to replace all UE4 macros, include balanced params
+
+regex = '^(\s*)((?:'+macros+')\s*\('+paren_matcher(25)+'\))'
+content = re.sub(regex, makeQualifiers, content, flags=re.MULTILINE)
+
+
+regex2 = '(\s*)((?:'+macros2+')\s*\('+paren_matcher(25)+'\))'
+content = re.sub(regex2, makeMetas, content, flags=re.MULTILINE)
+
+
 
 # Output the content
 print(content, end='')
