@@ -19,7 +19,7 @@ if len(sys.argv) != 2:
     sys.exit(1)
 
 debug=False
-#debug=True
+debug=True
 
 # Get the filename from args
 filename = sys.argv[1]
@@ -37,21 +37,25 @@ macros = "UCLASS|UENUM|UINTERFACE|USTRUCT|UFUNCTION|UPROPERTY" # todo: |IMPLEMEN
 macros2 = "UMETA"
 
 def makeQualifiers(match):
-	debug = False
+	#debug = False
 	#if debug: print(match)
 	macro = match.group(2)
 	if debug: print(macro)
 	parts = re.match(r'('+macros+')\(\s*((?:[^\s]+[,\s]*)*)\s*\)',macro,re.M)
 	#parts = re.match(r'('+macros+')\((.*)\)',macro,re.M)
 	qualifier = ""
+	original = match.group(2)
 	#if debug: print(parts)
 	if parts is None:
 		#qualifier = "bad regex for %s" % (macro)
 		return match.group(0)
 	else:
 		q = parts.group(2)
-		#if (len(q.strip())==0):	# case of empty USTRUCT()
+		#if (len(q.strip())==0):		# case of empty USTRUCT()
 		#	return q
+		q = re.sub('/\*(.*)\*/','',q)			# take out comments like /* something */
+		original = re.sub('/\*(.*)\*/','',original)	# take out comments like /* something */
+		if debug: print(q, file=sys.stderr)
 		q = re.sub('\(','{',q)
 		q = re.sub('\)','}',q)
 		if debug: print(q, file=sys.stderr)
@@ -77,7 +81,7 @@ def makeQualifiers(match):
 		for i in k:
 			qualifier += "\t\\qualifier "+i+"\n"
 
-	return "%s/**\n\t\\brief **%s**\n%s*/" % (match.group(1), match.group(2), qualifier)
+	return "%s/**\n\t\\brief **%s**\n%s*/" % (match.group(1), original, qualifier)
 
 
 def makeMetas(match):
