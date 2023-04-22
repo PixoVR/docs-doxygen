@@ -19,7 +19,7 @@ if len(sys.argv) != 2:
     sys.exit(1)
 
 debug=False
-debug=True
+#debug=True
 
 # Get the filename from args
 filename = sys.argv[1]
