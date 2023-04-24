@@ -98,27 +98,39 @@ def makeMetas(match):
 		q = parts.group(2)
 		q = re.sub('\(','{',q)
 		q = re.sub('\)','}',q)
-		if debug: print(q, file=sys.stderr)
+		if debug: print("0 "+q, file=sys.stderr)
 		q = re.sub('=\s*([^",]+)\s*(,|$)',r'="\1"\2',q)
-		if debug: print(q, file=sys.stderr)
+		if debug: print("1 "+q, file=sys.stderr)
 		#q = re.sub('(\"[^:][^"]+\")([^:])',r'"STRING"\2',q)
 		#q = re.sub('(\"[^:,]?[^",]+\")',r'"STRING"',q)
 		#q = re.sub('(\"[^:,]?[^"]+\")',r'"STRING"',q)
-		#if debug: print(q, file=sys.stderr)
+		#if debug: print("2 "+q, file=sys.stderr)
 		q = re.sub('([\w]*)\s*=',r'"\1":',q)
-		if debug: print(q, file=sys.stderr)
-		q = re.sub('([\w]+)\s*(}|,|$)',r'"\1":null\2',q)
-		if debug: print(q, file=sys.stderr)
+		if debug: print("3 "+q, file=sys.stderr)
+		#q = re.sub('"?([\w]+)"?\s*(}|,|$)',r'"\1":null\2',q)
+		#q = re.sub('"?([\w]+)"?\s*(}|,|$)',r'"\1":null\2',q)
+		q = re.sub('(?<!:)\s"([^":]+)"\s*(}|,|$)',r'"\1":null\2',q)
+		if debug: print("4 "+q, file=sys.stderr)
+		q = re.sub(r'^(["\'][^":]*["\'])$',r'\1:null',q);
+		if debug: print("5 "+q, file=sys.stderr)
 		q = re.sub('(/\*.*\*/)','',q);
-		if debug: print(q, file=sys.stderr)
+		if debug: print("6 "+q, file=sys.stderr)
 		q = '{'+q+'}'
 		#print(filename, file=sys.stderr)
 		if debug: print(q, file=sys.stderr)
 		j = json.loads(q)
 		if debug: print("===========")
 		if debug: print(j)
+		k = list({ele for ele in j if j[ele] is None})
 		for i in j:
-			output += "<br/>*"+i+"*: **"+j[i]+"**"
+			if debug: print("i: "+i)
+			if j[i] is None:
+				output += "<br/>**"+i+"**"
+			else:
+				output += "<br/>*"+i+"*: **"+j[i]+"**"
+		if debug: print("output: "+output)
+		if output:
+			output = "Metadata: "+output
 
 	return "%s/** %s **/" % (match.group(1), output)
 
