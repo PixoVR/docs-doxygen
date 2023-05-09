@@ -26,13 +26,6 @@ filename = sys.argv[1]
 
 if debug: print("File: "+filename, file=sys.stderr)
 
-# Slurp file into a single string
-file = open(filename, 'r')
-if file.closed:
-    print("Cannot read file", file=sys.stderr)
-    sys.exit(1)
-content = file.read()
-
 macros = "UCLASS|UENUM|UINTERFACE|USTRUCT|UFUNCTION|UPROPERTY" # todo: |IMPLEMENT_MODULE|IMPLEMENT_GAME_MODULE"
 macros2 = "UMETA"
 
@@ -137,13 +130,22 @@ def makeMetas(match):
 
 # Do a regular expression to replace all UE4 macros, include balanced params
 
-regex = '^(\s*)((?:'+macros+')\s*\('+paren_matcher(25)+'\))'
-content = re.sub(regex, makeQualifiers, content, flags=re.MULTILINE)
+try:
+	# Slurp file into a single string
+	file = open(filename, 'r')
+	if file.closed:
+	    print("Cannot read file", file=sys.stderr)
+	    sys.exit(1)
+	content = file.read()
 
+	regex = '^(\s*)((?:'+macros+')\s*\('+paren_matcher(25)+'\))'
+	content = re.sub(regex, makeQualifiers, content, flags=re.MULTILINE)
 
-regex2 = '(\s*)((?:'+macros2+')\s*\('+paren_matcher(25)+'\))'
-content = re.sub(regex2, makeMetas, content, flags=re.MULTILINE)
-
+	regex2 = '(\s*)((?:'+macros2+')\s*\('+paren_matcher(25)+'\))'
+	content = re.sub(regex2, makeMetas, content, flags=re.MULTILINE)
+except Exception as e:
+	print("Error on: "+filename, file=sys.stderr)
+	raise
 
 
 # Output the content
