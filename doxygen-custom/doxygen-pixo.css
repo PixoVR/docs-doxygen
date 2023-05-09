@@ -211,3 +211,16 @@ div.contents, div.header .title, div.header .summary
 	color: var(--page-foreground-color);
 	#font-weight: bold;
 }
+
+table.markdownTable h1
+{
+	margin-right: 0px;
+	font-size: 3em;
+	line-height: 0em;
+	margin-top: 0.5em;
+}
+
+table.markdownTable td
+{
+	background: var(--code-background);
+}
