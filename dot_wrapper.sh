@@ -8,8 +8,11 @@ SVG=$4
 #echo "DOT WRAPPER: " "$TYPE" 1>&2
 #echo "DOT WRAPPER: " "$SVG" 1>&2
 
-# run this no matter what
-dot "$@"
+# run this no matter what, and suppress the warning about size,
+# which we know is because we're bending DOT's ability to render
+# unreal blueprints because DOT wants a node's point to be in the
+# center, but blueprints want a nodes position to be the upper left.
+dot "$@" 2>&1 | grep -v "too small for content" | grep -v "in label" | grep -v "layers not supported"
 
 case $TYPE in
 
@@ -22,7 +25,7 @@ case $TYPE in
 		if [[ "$SVG" == *"inline"* ]]; then
 
 			#echo "dot_wrapper.sh: " "$@"
-			echo "(using dot wrapper to correct bounding box)"
+			echo "Using dot_wrapper.sh to correct bounding box: '`basename $SVG`'"
 
 			# rebuild the svg's bounding box, because the blueprints render out of bounds.
 			#echo "dot_wrapper fixing bounding box: " "$SVG"
@@ -38,18 +41,19 @@ case $TYPE in
 
 			# add margin to the int values
 			export `echo $VIEWBOX | perl -pe "s/viewBox=.+(\d+) (\d+) (\d+) (\d+).*/A=\1\nB=\2\nC=\3\nD=\4\n/"`
-			#echo VARS: $A $B $C $D
 			C=$((C+10))
 			D=$((D+10))
 			VIEWBOX="viewBox=\"$A $B $C $D\""
+			#echo VIEWBOX: $VIEWBOX
 
 			# truncate to an int
 			W=`echo -n "$WIDTH"  | perl -pe 's/(.*=\")(\d+)(\.?.*)/\2/'`
 			H=`echo -n "$HEIGHT" | perl -pe 's/(.*=\")(\d+)(\.?.*)/\2/'`
-			W=$((W+10))
+			W=$((W+15))
 			H=$((H+10))
 			WIDTH=" width=\"${W}pt\""
 			HEIGHT=" height=\"${H}pt\""
+			#echo DIMS: $WIDTH $HEIGHT
 
 			# actually replace in the svg file
 			sed -i tmp "s/viewBox=\"[0-9 .]*\"/${VIEWBOX}/" ${SVG}

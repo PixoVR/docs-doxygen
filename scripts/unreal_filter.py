@@ -26,7 +26,7 @@ filename = sys.argv[1]
 
 if debug: print("File: "+filename, file=sys.stderr)
 
-macros = "UCLASS|UENUM|UINTERFACE|USTRUCT|UFUNCTION|UPROPERTY" # todo: |IMPLEMENT_MODULE|IMPLEMENT_GAME_MODULE"
+macros = "UCLASS|UENUM|UINTERFACE|USTRUCT|UFUNCTION|UPROPERTY|UDELEGATE" # todo: |IMPLEMENT_MODULE|IMPLEMENT_GAME_MODULE"
 macros2 = "UMETA"
 
 def makeQualifiers(match):
