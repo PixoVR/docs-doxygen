@@ -224,3 +224,22 @@ table.markdownTable td
 {
 	background: var(--code-background);
 }
+
+svg .layer
+{
+	filter: drop-shadow(3px 3px 3px rgb(0.2 0.2 0.2 / 0.3));
+}
+
+@media (prefers-color-scheme: dark) {
+	svg .layer
+	{
+		filter: drop-shadow(3px 3px 3px rgb(0.8 0.8 0.8 / 0.3));
+	}
+}
+
+.dotgraph
+{
+	box-shadow: inset 0px 0px 14px rgba(0 0 0 / .2);
+	background-color: var(--code-background);
+}
+

@@ -42,7 +42,7 @@ case $TYPE in
 			# add margin to the int values
 			export `echo $VIEWBOX | perl -pe "s/viewBox=.+(\d+) (\d+) (\d+) (\d+).*/A=\1\nB=\2\nC=\3\nD=\4\n/"`
 			C=$((C+10))
-			D=$((D+10))
+			D=$((D+15))
 			VIEWBOX="viewBox=\"$A $B $C $D\""
 			#echo VIEWBOX: $VIEWBOX
 
