@@ -241,5 +241,31 @@ svg .layer
 {
 	box-shadow: inset 0px 0px 14px rgba(0 0 0 / .2);
 	background-color: var(--code-background);
+	Xclear: both;
+	Xmax-height: 600px;
+	max-height: 80vh;
+}
+
+.dotgraph::-webkit-scrollbar-corner
+{
+	background-color: transparent;
+}
+
+.dotgraph .caption
+{
+	position: sticky;
+	left: 0;
+	bottom: 0;
+}
+
+.textblock
+{
+	overflow-wrap: anywhere;
+}
+
+.textblock img.inline
+{
+	float:right;
+	margin: 0px 10px;
 }
 
