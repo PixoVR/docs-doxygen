@@ -225,6 +225,11 @@ table.markdownTable td
 	background: var(--code-background);
 }
 
+svg text
+{
+	user-select: none;
+}
+
 svg .layer
 {
 	filter: drop-shadow(3px 3px 3px rgb(0.2 0.2 0.2 / 0.3));
@@ -243,7 +248,7 @@ svg .layer
 	background-color: var(--code-background);
 	Xclear: both;
 	Xmax-height: 600px;
-	max-height: 80vh;
+	max-height: 70vh;
 }
 
 .dotgraph::-webkit-scrollbar-corner
