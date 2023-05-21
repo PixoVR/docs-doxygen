@@ -282,3 +282,9 @@ svg .layer .node.variable
 	margin: 0px 10px;
 }
 
+/* for #include line */
+.contents > p > code,
+ul li
+{
+	word-wrap: break-word;
+}
