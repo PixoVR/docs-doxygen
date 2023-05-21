@@ -138,6 +138,7 @@ html.dark-mode .icona .icon
 	overflow: hidden;
 	display: inline-block;
 	white-space: nowrap;
+	margin-right: 0px;
 }
 
 #projectbrief
@@ -235,6 +236,11 @@ svg .layer
 	filter: drop-shadow(3px 3px 3px rgb(0.2 0.2 0.2 / 0.3));
 }
 
+svg .layer .node.variable
+{
+	filter: drop-shadow(inset 3px 3px 3px #FFFFFF);
+}
+
 @media (prefers-color-scheme: dark) {
 	svg .layer
 	{
@@ -246,9 +252,11 @@ svg .layer
 {
 	box-shadow: inset 0px 0px 14px rgba(0 0 0 / .2);
 	background-color: var(--code-background);
-	Xclear: both;
-	Xmax-height: 600px;
 	max-height: 70vh;
+
+	position: relative;
+	padding: 0px;
+	overflow: overlay;
 }
 
 .dotgraph::-webkit-scrollbar-corner
@@ -260,7 +268,7 @@ svg .layer
 {
 	position: sticky;
 	left: 0;
-	bottom: 0;
+	bottom: 10px;
 }
 
 .textblock
