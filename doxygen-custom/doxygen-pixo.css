@@ -236,10 +236,12 @@ svg .layer
 	filter: drop-shadow(3px 3px 3px rgb(0.2 0.2 0.2 / 0.3));
 }
 
+/*
 svg .layer .node.variable
 {
 	filter: drop-shadow(inset 3px 3px 3px #FFFFFF);
 }
+*/
 
 @media (prefers-color-scheme: dark) {
 	svg .layer
@@ -248,15 +250,61 @@ svg .layer .node.variable
 	}
 }
 
+svg .node > g > a > *
+{
+	pointer-events: none;
+}
+
+svg .node > g > a > :first-child
+{
+	pointer-events: initial;
+	cursor: pointer;
+}
+
+svg .node > g > a > :first-child:hover
+{
+	stroke: white;
+	stroke-width:4;
+}
+
+svg .node > g > a > g
+{
+	pointer-events: bounding-box;
+	cursor: pointer;
+}
+
+svg .node > g > a > g:hover
+{
+	stroke: rgba(0,0,0,.2);
+	fill: orange;
+}
+
+svg .node > g > a > g:hover *
+{
+	fill: orange;
+}
+
+svg .node > g > a > g:hover [fill="transparent"]
+{
+	fill: transparent;
+	stroke: none;
+}
+
 .dotgraph
 {
 	box-shadow: inset 0px 0px 14px rgba(0 0 0 / .2);
 	background-color: var(--code-background);
-	max-height: 70vh;
+	max-height: 75vh;
 
 	position: relative;
 	padding: 0px;
 	overflow: overlay;
+}
+
+@media screen and (max-width: 768px) {
+	.dotgraph {
+		max-height: 65vh;
+	}
 }
 
 .dotgraph::-webkit-scrollbar-corner
@@ -269,9 +317,12 @@ svg .layer .node.variable
 	position: sticky;
 	left: 0;
 	bottom: 10px;
+	pointer-events: none;
 }
 
-.textblock
+.textblock,
+.contents > p > code,
+ul li
 {
 	overflow-wrap: anywhere;
 }
@@ -282,9 +333,10 @@ svg .layer .node.variable
 	margin: 0px 10px;
 }
 
-/* for #include line */
-.contents > p > code,
-ul li
-{
-	word-wrap: break-word;
+@media screen and (max-width: 648px) {
+	.textblock img.inline {
+		width: 100%;
+		margin: 0px;
+	}
 }
+
