@@ -250,6 +250,9 @@ svg .layer .node.variable
 	}
 }
 
+
+/* some ninja-level css! */
+
 svg .node > g > a > *
 {
 	pointer-events: none;
@@ -261,10 +264,17 @@ svg .node > g > a > :first-child
 	cursor: pointer;
 }
 
-svg .node > g > a > :first-child:hover
+svg .node > g > a > :first-child:hover,
+svg .node > g > a > :first-child:has(~ *:hover)
 {
 	stroke: white;
-	stroke-width:4;
+	stroke-width:3 !important;
+}
+
+svg .node > g > a[*|href] > :first-child
+{
+	stroke: #FF9600;
+	stroke-width:1;
 }
 
 svg .node > g > a > g
@@ -275,7 +285,7 @@ svg .node > g > a > g
 
 svg .node > g > a > g:hover
 {
-	stroke: rgba(0,0,0,.2);
+	Xstroke: rgba(0,0,0,.2);
 	fill: orange;
 }
 
@@ -299,6 +309,16 @@ svg .node > g > a > g:hover [fill="transparent"]
 	position: relative;
 	padding: 0px;
 	overflow: overlay;
+}
+
+.dotgraph:first-child
+{
+	margin: var(--spacing-medium) 0px 0px 0px;
+}
+
+.dotgraph:only-child
+{
+	margin: var(--spacing-medium) 0px;
 }
 
 @media screen and (max-width: 768px) {
