@@ -176,6 +176,9 @@ div.contents, div.header .title, div.header .summary
 	background-color: inherit;
 	border: inherit;
 	border-radius: inherit;
+
+	position: relative;
+	display: inline-block;
 }
 
 .select2-container--open {
@@ -360,3 +363,13 @@ ul li
 	}
 }
 
+div.gallery
+{
+	text-align: center;
+}
+
+div.gallery img
+{
+	width: 25%;
+	max-width: 256px;
+}
