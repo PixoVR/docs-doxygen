@@ -365,11 +365,35 @@ ul li
 
 div.gallery
 {
+	Xdisplay: flex;
+	Xflex-wrap: wrap;
+	Xalign-content: flex-start;
+	Xjustify-content: space-around;
+
+	display: grid;
+	gap: 10px;
+	grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}
+
+div.gallery a.el
+{
+	Xflex-grow: 1;
+	Xflex-basis: 30%;
 	text-align: center;
+	padding: 10px;
+	white-space: nowrap;
+}
+
+div.gallery div.image
+{
+	width: 100%;
+	display: inline-block;
 }
 
 div.gallery img
 {
-	width: 25%;
-	max-width: 256px;
+	width: 100%;
+	Xmax-width: 256px;
+	box-sizing: border-box;
+	border: 1px solid var(--separator-color);
 }
