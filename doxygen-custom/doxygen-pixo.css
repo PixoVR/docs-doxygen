@@ -354,6 +354,7 @@ ul li
 {
 	float:right;
 	margin: 0px 10px;
+	border: 1px solid var(--separator-color);
 }
 
 @media screen and (max-width: 648px) {
@@ -397,4 +398,11 @@ div.gallery img
 	Xmax-width: 256px;
 	box-sizing: border-box;
 	border: 1px solid var(--separator-color);
+}
+
+div.gallery div.image:hover img,
+div.gallery div.image:hover .caption
+{
+	border-color: var(--primary-color);
+	text-decoration: underline;
 }
