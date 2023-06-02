@@ -41,7 +41,12 @@ case $TYPE in
 
 			# add margin to the int values
 			export `echo $VIEWBOX | perl -pe "s/viewBox=.+(\d+) (\d+) (\d+) (\d+).*/A=\1\nB=\2\nC=\3\nD=\4\n/"`
+
+			F=16		
+	
+			#C=$(( (((C/$F)+0)*$F) ))
 			C=$((C+10))
+			#D=$(( (((D/$F)+1)*$F) ))
 			D=$((D+15))
 			VIEWBOX="viewBox=\"$A $B $C $D\""
 			#echo VIEWBOX: $VIEWBOX
@@ -49,7 +54,9 @@ case $TYPE in
 			# truncate to an int
 			W=`echo -n "$WIDTH"  | perl -pe 's/(.*=\")(\d+)(\.?.*)/\2/'`
 			H=`echo -n "$HEIGHT" | perl -pe 's/(.*=\")(\d+)(\.?.*)/\2/'`
+			#W=$(( (((W/$F)+1)*$F) ))
 			W=$((W+15))
+			#H=$(( (((H/$F)+0)*$F) ))
 			H=$((H+10))
 			WIDTH=" width=\"${W}pt\""
 			HEIGHT=" height=\"${H}pt\""
