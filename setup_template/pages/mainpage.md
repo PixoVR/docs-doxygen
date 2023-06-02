@@ -1,4 +1,4 @@
-\mainpage The SomeSDK for SomeTarget
+\mainpage About the SDK
 
 This is an XYZ plugin which implements the XYZ API, supporting XYZ version **1.2.3** to **4.5.6**.
 
