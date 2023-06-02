@@ -14,7 +14,7 @@ ADD	$CACHEBREAKER skipcache
 
 RUN	git submodule set-branch --branch main documentation/docs-doxygen && \
 	git submodule update --init documentation/docs-doxygen && \
-	git -C documentation/docs-doxygen lfs pull
+	git lfs pull
 
 #ADD	$CACHEBREAKER skipcache
 
