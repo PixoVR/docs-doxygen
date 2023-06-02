@@ -13,7 +13,8 @@ RUN	doxygen -v	# confirm doxygen version from docs-docker-base
 ADD	$CACHEBREAKER skipcache
 
 RUN	git submodule set-branch --branch main documentation/docs-doxygen && \
-	git submodule update --init documentation/docs-doxygen
+	git submodule update --init documentation/docs-doxygen && \
+	git -C documentation/docs-doxygen lfs pull
 
 #ADD	$CACHEBREAKER skipcache
 
