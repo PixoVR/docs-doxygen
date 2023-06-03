@@ -158,10 +158,12 @@ div.contents, div.header .title, div.header .summary
 	max-width: unset;
 }
 
+/*
 div.contents p
 {
 	text-align: justify;
 }
+*/
 
 .select2-container
 {
