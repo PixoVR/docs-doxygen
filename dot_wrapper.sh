@@ -63,9 +63,9 @@ case $TYPE in
 			#echo DIMS: $WIDTH $HEIGHT
 
 			# actually replace in the svg file
-			sed -i tmp "s/viewBox=\"[0-9 .]*\"/${VIEWBOX}/" ${SVG}
-			sed -i tmp "s/ width=\"[0-9 .pt]*\"/ ${WIDTH}/" ${SVG}
-			sed -i tmp "s/ height=\"[0-9 .pt]*\"/ ${HEIGHT}/" ${SVG}
+			sed -i'.tmp' "s/viewBox=\"[0-9 .]*\"/${VIEWBOX}/" ${SVG}
+			sed -i'.tmp' "s/ width=\"[0-9 .pt]*\"/ ${WIDTH}/" ${SVG}
+			sed -i'.tmp' "s/ height=\"[0-9 .pt]*\"/ ${HEIGHT}/" ${SVG}
 
 			#echo NEW VIEWBOX: $VIEWBOX
 			#echo NEW WIDTH: $WIDTH $W
