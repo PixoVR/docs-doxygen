@@ -14,6 +14,13 @@ else
 	cp -v setup_template/.gitignore ../ | prefix
 fi
 
+if [ -f "../.gitattributes" ]; then
+	echo "Skipping existing .gitattributes..."
+else
+	echo "Copying .gitattributes..."
+	cp -v setup_template/.gitattributes ../ | prefix
+fi
+
 if [ -f "../build.sh" ]; then
 	echo "Skipping existing build.sh..."
 else
