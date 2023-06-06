@@ -12,6 +12,7 @@ export PROJECT_MAIN_PAGE='../pages/mainpage.md'				# the main home markdown page
 
 export DOXYGEN_FILTER='scripts/unreal_filter.py'			# a script filter for interpreting the code (adds stuff like decorators or macros)
 export DOXYGEN_INPUT='../../Source "../../Folder With Spaces"'		# a list of input folders for documenting, which is a whitespace-separated list of (optionally) quoted paths.  The Doxyfile will already include "../pages" for you.  Paths are relative to the `docs-doxygen` folder.
+export DOXYGEN_IMAGES='../images/'					# a list of root folders to look for images
 export DOXYGEN_EXCLUDE=''						# a list of paths to exclude when building.
 export DOXYGEN_STRIP_FROM_PATH="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../" && pwd)"	# the full absolute path to the root folder to be removed during publish.  This is kind of cosmetic but helps reduce confusion when finding libraries.
 export DOXYGEN_IGNORE_PREFIX=''						# a class/method/variable prefix to be ignored when alphabetizing.  For instance if everything is pApexSDK, mMatrix, etc, the ignore prefix may want to be "p m" where the list is a whitespace-separated list of prefixes.  The ignore order matters, where longer entries should be first.
