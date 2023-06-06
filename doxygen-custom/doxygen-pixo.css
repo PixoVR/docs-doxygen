@@ -433,6 +433,12 @@ div.gallery img
 	left: -3px;
 }
 
+div.gallery .caption
+{
+	line-break: anywhere;
+	white-space: normal;
+}
+
 div.gallery div.image:hover img,
 div.gallery div.image:hover .caption
 {
