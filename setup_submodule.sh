@@ -38,9 +38,9 @@ fi
 if [ -f "../Dockerfile" ]; then
 	echo "Skipping existing Dockerfile..."
 else
-	echo "Linking Dockerfile (if you need the unreal version, link it manually)..."
-	#cp -v setup_template/Dockerfile ../ | prefix
-	ln -s docs-doxygen/setup_template/Dockerfile ../Dockerfile | prefix
+	echo "Copying Dockerfile (if you need the unreal version, copy it manually)..."
+	cp -v setup_template/Dockerfile ../ | prefix
+	#ln -s docs-doxygen/setup_template/Dockerfile ../Dockerfile | prefix
 fi
 
 if [ -f "../Makefile" ]; then
