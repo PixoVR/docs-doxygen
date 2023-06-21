@@ -10,6 +10,7 @@ RUN	ls -al /project/project/Plugins/
 
 # build plugin cpp files
 #RUN	UE4Editor-Cmd
+RUN	RunUAT.sh -list
 
 
 #FROM	docs-docker-base
