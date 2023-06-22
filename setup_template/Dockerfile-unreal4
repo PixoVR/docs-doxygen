@@ -4,13 +4,18 @@ FROM	gcr.io/pixo-bootstrap/docs-docker-ue4-base:latest as ue4
 WORKDIR /project
 
 # copy plugin into plugins folder
+# which will satisfy the softlink in the Plugins folder for each UE version
 COPY	. /project/project/Plugins/plugin
 
-RUN	ls -al /project/project/Plugins/
+#RUN	ls -al /project/project/Plugins/
+RUN	ls -al /project/project/Plugins/plugin/
+
+# test commands
+#RUN	UE4Editor-Cmd -nullrhi -nosplash -nopause -nologtimes -unattended -nosound -auto -useallavailablecores -logcmds="global none, LogInit all" -ExecCmds="QUIT_EDITOR"
+#RUN	RunUAT.sh -list
 
 # build plugin cpp files
-#RUN	UE4Editor-Cmd
-RUN	RunUAT.sh -list
+#RUN	UE4-Editor-Cmd -nullrhi -nosplash 
 
 
 #FROM	docs-docker-base
