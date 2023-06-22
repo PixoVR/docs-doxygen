@@ -1,16 +1,51 @@
 
 FROM	gcr.io/pixo-bootstrap/docs-docker-ue4-base:latest as ue4
 
+# unreal installation test commands
+#RUN	UE4Editor-Cmd -nullrhi -nosplash -nopause -nologtimes -unattended -nosound -auto -useallavailablecores -logcmds="global none, LogInit all" -ExecCmds="QUIT_EDITOR"
+#RUN	RunUAT.sh -list
+
 WORKDIR /project
 
-# copy plugin into plugins folder
+# make sure our submodules are up to date (and that our git auth is working)
+RUN	cd /project && \
+	git submodule init && \
+	git submodule update
+
+# copy this plugin into the `Plugins` folder
+# we don't really know the name of the plugin, nor do we care, we just put it in a `plugin` folder.
+# we want this dockerfile to be copyable from docs-doxygen without needing changes.
 COPY	. /project/project/Plugins/plugin
 
-RUN	ls -al /project/project/Plugins/
+# dummy check that files are where we want them to be
+#RUN	ls -al /project/project/Plugins/
+#RUN	ls -al /project/project/Plugins/plugin/
+
+ARG	UE_PROJECT="/project/project/Documentation_4_27.uproject"
+ARG	OUTPUT_DIR="/tmp/docs"
+ARG	INCLUDES="/PixoCore,/PixoLobby"
+
+# build any un-compiled plugins, which will probably be all of them
+RUN	RunUAT.sh BuildEditor \
+	-project=${UE_PROJECT} \
+	-notools
 
 # build plugin cpp files
-#RUN	UE4Editor-Cmd
-RUN	RunUAT.sh -list
+# https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/CommandLineArguments/
+RUN	export LD_LIBRARY_PATH=/mnt/projects2/Unreal\ Engine/src/UnrealEngine_4.27/Engine/Binaries/Linux/Android && \
+	UE4Editor-Cmd ${UE_PROJECT} \
+	-nullrhi \
+	-nosplash \
+	-unattended \
+	-nosound \
+	-auto \
+	-useallavailablecores \
+	-LogCmds="global none, LOG_DOT all" \
+	-NoLogTimes \
+	-run=PixoDocumentation \
+	-OutputMode=doxygen \
+	-OutputDir=${OUTPUT_DIR} \
+	-Include=${INCLUDES}
 
 
 #FROM	docs-docker-base
