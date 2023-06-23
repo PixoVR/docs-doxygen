@@ -23,7 +23,7 @@ RUN	cd /project && \
 # We don't really know the name of the plugin, nor do we care.
 # We just put it in a `plugin` folder so it's on a known path.
 # We want this Dockerfile to be copyable from docs-doxygen without needing changes.
-COPY	. /project/project/Plugins/plugin
+COPY	--chown=ue4:ue4 . /project/project/Plugins/plugin
 
 # Make sure the submodules for this plugin are pulled.
 # We pull the submodule version(s) committed in the repo,
