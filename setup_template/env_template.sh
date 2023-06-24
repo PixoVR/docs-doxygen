@@ -20,3 +20,6 @@ export DOXYGEN_IGNORE_PREFIX=''						# a class/method/variable prefix to be igno
 
 # user variables.  Useful when writing pages that refer to other urls, but don't want to hardcode them in.  For instance, use `$(APEX_SERVER_URL)` in a markdown page to resolve the variable reference.
 #export APEX_SERVER_URL='https://apex.pixovr.com'
+
+# UFS input paths for publishing blueprints, materials, etc 
+#export UNREAL_UFS_PATHS='/PixoCore,/PixoLobby'
