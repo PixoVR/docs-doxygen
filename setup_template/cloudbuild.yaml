@@ -1,0 +1,22 @@
+# https://github.com/GoogleContainerTools/kaniko
+steps:
+  - name: 'gcr.io/kaniko-project/executor:latest'
+    id: Build
+    args:
+      - --destination=gcr.io/chris-pixo-sandbox-project/docs/prod/unreal-engine:$COMMIT_SHA
+      - --destination=gcr.io/chris-pixo-sandbox-project/docs/prod/unreal-engine:latest
+      - --context=.
+      - --dockerfile=documentation/Dockerfile
+      #- --cache=true
+      #- --cache-ttl=240h
+      #- --snapshot-mode=redo
+      - --single-snapshot
+      - --compressed-caching=false
+      - --git=recurse-submodules=true
+      - --use-new-run
+timeout: 3600s
+options:
+  machineType: E2_HIGHCPU_8
+  #pool:
+  #  name: 'projects/chris-pixo-sandbox-project/locations/us-central1/workerPools/build-pool'
+

@@ -11,13 +11,16 @@ FROM	gcr.io/pixo-bootstrap/docs-docker-ue4-base:latest as ue4
 
 WORKDIR /project
 
+# sup cachebreaker
+ADD	$CACHEBREAKER skipcache24
+
 # Make sure our submodules are up to date (and that our git auth is working)
-# This is for updating pixo-unreal-documentation
+# This is for updating pixo-unreal-documentation to latest on main
 RUN	cd /project && \
 	git submodule update --init --recursive && \
-	cd project/Plugins/pixo-unreal-documentation && \
+	cd /project/project/Plugins/pixo-unreal-documentation && \
 	git pull origin main && \
-	git lfs pull 
+	git lfs pull
 
 # Copy this plugin into the `Plugins` folder.
 # We don't really know the name of the plugin, nor do we care.
@@ -28,18 +31,21 @@ COPY	--chown=ue4:ue4 . /project/project/Plugins/plugin
 # Make sure the submodules for this plugin are pulled.
 # We pull the submodule version(s) committed in the repo,
 # not necessarily the latest version committed.
-# We also do the LFS pull here to make sure the project and the submodules are in tact.
+# We also do the LFS pull here, which will not have happened otherwise.
 RUN	cd /project/project/Plugins/plugin && \
 	git submodule update --init --recursive && \
-	git lfs pull
+        git lfs fetch && \
+        git lfs checkout
 
-# Dummy check that files are where we want them to be.
+#RUN	free -h
+
+# Check that files are where we want them to be.
 #RUN	ls -al /project/project/Plugins/
 #RUN	ls -al /project/project/Plugins/plugin/
 
 # Vars needed for the commandlet and build calls below.
-ARG	UE_PROJECT="/project/project/Documentation_4_27.uproject"
-ARG	OUTPUT_DIR="/tmp/generated"
+ARG	UE_PROJECT=/project/project/Documentation_4_27.uproject
+ARG	OUTPUT_DIR=/tmp/generated
 
 # Ensure that our output directory exists.
 RUN	mkdir -p $OUTPUT_DIR
@@ -52,7 +58,7 @@ RUN	RunUAT.sh BuildEditor \
 
 # Generate the plugin cpp files from the commandlet.
 # https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/CommandLineArguments/
-RUN	eval "$(cat /project/project/documentation/env.sh | grep "UNREAL_UFS_PATHS")" && \
+RUN	eval "$(cat /project/project/Plugins/plugin/documentation/env.sh | grep "UNREAL_UFS_PATHS")" && \
 	export LD_LIBRARY_PATH=$UE_DIR/Engine/Binaries/Linux/Android && \
 	UE4Editor-Cmd $UE_PROJECT \
 	-nullrhi \
@@ -68,20 +74,27 @@ RUN	eval "$(cat /project/project/documentation/env.sh | grep "UNREAL_UFS_PATHS")
 	-OutputDir=$OUTPUT_DIR \
 	-Include=$UNREAL_UFS_PATHS
 
-RUN	ls -al $OUTPUT_DIR
+# check to see it all got there
+#RUN	ls -al $OUTPUT_DIR
 
 # built from https://github.com/PixoVR/docs-docker-base
 FROM	gcr.io/pixo-bootstrap/docs-docker-base:latest
+
+# because of FROM, we have to re-mention our vars
+# https://stackoverflow.com/questions/44438637/arg-substitution-in-run-command-not-working-for-dockerfile
+ARG	OUTPUT_DIR
 
 WORKDIR	/build
 
 # get this plugin into the /build folder for doxygen
 # the copy above will have Intermediate and Build folders from the compile,
-# and we don't want to deal with ignoring them.
+# and we don't want to deal with ignoring them for documentation.
 COPY	. .
 
 # grab the documentation (fake C++ files) we generated above
-COPY	--from=ue4 $OUTPUT_DIR documentation/ 
+COPY	--from=ue4 $OUTPUT_DIR documentation/
+
+RUN	ls -al /build/documentation
 
 RUN	doxygen -v	# confirm doxygen version from docs-docker-base
 
@@ -90,7 +103,8 @@ RUN	git submodule set-branch --branch main documentation/docs-doxygen && \
 	git submodule update --init documentation/docs-doxygen && \
 	git tag
 
-ADD	$CACHEBREAKER skipcache22
+# sup cachebreaker
+#ADD	$CACHEBREAKER skipcache22
 
 # actually do the doxygen build, and move the output to our nginx (sub)folder
 RUN	./documentation/build.sh && \

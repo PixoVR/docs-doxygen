@@ -38,10 +38,18 @@ fi
 if [ -f "../Dockerfile" ]; then
 	echo "Skipping existing Dockerfile..."
 else
-	echo "Copying Dockerfile (if you need the unreal version, copy it manually)..."
+	echo "Copying Dockerfile (if you need the Unreal version, copy it manually)..."
 	cp -v setup_template/Dockerfile ../ | prefix
 	#ln -s docs-doxygen/setup_template/Dockerfile ../Dockerfile | prefix
 fi
+
+if [ -f "../cloudbuild.yaml" ]; then
+	echo "Skipping existing cloudbuild.yaml..."
+else
+	echo "Copying cloudbuild.yaml...  You may need to update the --destination flags."
+	cp -v setup_template/cloudbuild.yaml ../ | prefix
+fi
+
 
 if [ -f "../Makefile" ]; then
 	echo "Skipping existing Makefile..."
