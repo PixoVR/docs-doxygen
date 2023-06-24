@@ -2,17 +2,27 @@
 # A random source for cache breaking
 ARG	CACHEBREAKER=https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h
 
+# Vars needed for the commandlet and build calls below.
+# https://stackoverflow.com/questions/44438637/arg-substitution-in-run-command-not-working-for-dockerfile
+ARG	UE_PROJECT=/project/project/Documentation_4_27.uproject
+ARG	OUTPUT_DIR=/tmp/generated
+
 # Built from https://github.com/PixoVR/docs-docker-ue4-base
 FROM	gcr.io/pixo-bootstrap/docs-docker-ue4-base:latest as ue4
 
-# Unreal installation test commands
-#RUN	UE4Editor-Cmd -nullrhi -nosplash -nopause -nologtimes -unattended -nosound -auto -useallavailablecores -logcmds="global none, LogInit all" -ExecCmds="QUIT_EDITOR"
-#RUN	RunUAT.sh -list
+# because of FROM, we have to re-mention our vars
+ARG	CACHEBREAKER
+ARG	OUTPUT_DIR
+ARG	UE_PROJECT
 
 WORKDIR /project
 
 # sup cachebreaker
-ADD	$CACHEBREAKER skipcache24
+#ADD	$CACHEBREAKER skipcache24
+
+# startup stats
+RUN	free -h
+RUN	df -h
 
 # Make sure our submodules are up to date (and that our git auth is working)
 # This is for updating pixo-unreal-documentation to latest on main
@@ -34,18 +44,11 @@ COPY	--chown=ue4:ue4 . /project/project/Plugins/plugin
 # We also do the LFS pull here, which will not have happened otherwise.
 RUN	cd /project/project/Plugins/plugin && \
 	git submodule update --init --recursive && \
-        git lfs fetch && \
-        git lfs checkout
+	git lfs pull
 
+# stats
 #RUN	free -h
-
-# Check that files are where we want them to be.
-#RUN	ls -al /project/project/Plugins/
-#RUN	ls -al /project/project/Plugins/plugin/
-
-# Vars needed for the commandlet and build calls below.
-ARG	UE_PROJECT=/project/project/Documentation_4_27.uproject
-ARG	OUTPUT_DIR=/tmp/generated
+#RUN	df -h
 
 # Ensure that our output directory exists.
 RUN	mkdir -p $OUTPUT_DIR
@@ -55,6 +58,10 @@ RUN	mkdir -p $OUTPUT_DIR
 RUN	RunUAT.sh BuildEditor \
 	-project=${UE_PROJECT} \
 	-notools
+
+# stats
+#RUN	df -h
+#RUN	free -h
 
 # Generate the plugin cpp files from the commandlet.
 # https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/CommandLineArguments/
@@ -77,11 +84,15 @@ RUN	eval "$(cat /project/project/Plugins/plugin/documentation/env.sh | grep "UNR
 # check to see it all got there
 #RUN	ls -al $OUTPUT_DIR
 
+# stats
+#RUN	df -h
+#RUN	free -h
+
 # built from https://github.com/PixoVR/docs-docker-base
-FROM	gcr.io/pixo-bootstrap/docs-docker-base:latest
+FROM	gcr.io/pixo-bootstrap/docs-docker-base:latest as builder
 
 # because of FROM, we have to re-mention our vars
-# https://stackoverflow.com/questions/44438637/arg-substitution-in-run-command-not-working-for-dockerfile
+ARG	CACHEBREAKER
 ARG	OUTPUT_DIR
 
 WORKDIR	/build
@@ -94,9 +105,13 @@ COPY	. .
 # grab the documentation (fake C++ files) we generated above
 COPY	--from=ue4 $OUTPUT_DIR documentation/
 
+# check to see it all got there
 RUN	ls -al /build/documentation
 
-RUN	doxygen -v	# confirm doxygen version from docs-docker-base
+# stats
+RUN	df -h
+RUN	free -h
+#RUN	doxygen -v	# confirm doxygen version from docs-docker-base
 
 # ensure the doxygen stuff is most up to date
 RUN	git submodule set-branch --branch main documentation/docs-doxygen && \
