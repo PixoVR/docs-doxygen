@@ -51,12 +51,12 @@ else
 fi
 
 
-if [ -f "../Makefile" ]; then
-	echo "Skipping existing Makefile..."
-else
-	echo "Copying Makefile..."
-	cp -v setup_template/Makefile ../ | prefix
-fi
+#if [ -f "../Makefile" ]; then
+#	echo "Skipping existing Makefile..."
+#else
+#	echo "Copying Makefile..."
+#	cp -v setup_template/Makefile ../ | prefix
+#fi
 
 if [ -d "../examples" ]; then
 	echo "Skipping existing examples/ folder..."
