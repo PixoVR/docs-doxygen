@@ -14,6 +14,13 @@ else
 	cp -v setup_template/.gitignore ../ | prefix
 fi
 
+if [ -f "../.gitattributes" ]; then
+	echo "Skipping existing .gitattributes..."
+else
+	echo "Copying .gitattributes..."
+	cp -v setup_template/.gitattributes ../ | prefix
+fi
+
 if [ -f "../build.sh" ]; then
 	echo "Skipping existing build.sh..."
 else
@@ -25,22 +32,31 @@ if [ -f "../env.sh" ]; then
 	echo "Skipping existing env.sh..."
 else
 	echo "Copying env.sh... You must modify/update this file for your implementation."
-	cp -v setup_template/env.sh ../env.sh | prefix
+	cp -v setup_template/env_template.sh ../env.sh | prefix
 fi
 
 if [ -f "../Dockerfile" ]; then
 	echo "Skipping existing Dockerfile..."
 else
-	echo "Copying Dockerfile..."
+	echo "Copying Dockerfile (if you need the Unreal version, copy it manually)..."
 	cp -v setup_template/Dockerfile ../ | prefix
+	#ln -s docs-doxygen/setup_template/Dockerfile ../Dockerfile | prefix
 fi
 
-if [ -f "../Makefile" ]; then
-	echo "Skipping existing Makefile..."
+if [ -f "../cloudbuild.yaml" ]; then
+	echo "Skipping existing cloudbuild.yaml..."
 else
-	echo "Copying Makefile..."
-	cp -v setup_template/Makefile ../ | prefix
+	echo "Copying cloudbuild.yaml...  You may need to update the --destination flags."
+	cp -v setup_template/cloudbuild.yaml ../ | prefix
 fi
+
+
+#if [ -f "../Makefile" ]; then
+#	echo "Skipping existing Makefile..."
+#else
+#	echo "Copying Makefile..."
+#	cp -v setup_template/Makefile ../ | prefix
+#fi
 
 if [ -d "../examples" ]; then
 	echo "Skipping existing examples/ folder..."

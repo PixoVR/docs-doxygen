@@ -11,7 +11,7 @@ function loadDocMenu()
 	menu.change(openDocPage);
 	menu.attr("title","Choose a different documentation page.\nHold shift to open in a new tab.");
 
-	var url = "/menu.json";
+	var url = "/menu.json?rand="+Math.random();	//cachebreaker
 
 	if (!window.location.host.includes("pixovr"))
 		url = "../../../../../documentation/documentation/html/menu.json";
