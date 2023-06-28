@@ -1,6 +1,7 @@
 #!/bin/bash
 
 export PROJECT_NAME='Name of project'					# should be short enough to fit on the documentation page
+export MENU_WEIGHT=100							# a sort index which will be applied before alphabetization
 export PROJECT_VERSION=`cd ../; git tag | tail -n 1`			# the last tagged version
 export PROJECT_BRIEF='Documentation for the Xyzproject C++ Library'	# a brief description of the SDK or module
 export PROJECT_STATUS='active'						# project status, for publishing.  Recognized choices are 'active' (default if not present), 'inactive' (invisable and won't appear in the documentation menu), 'deprecated' (visible in menu, but marked deprecated)
