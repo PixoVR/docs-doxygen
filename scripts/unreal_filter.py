@@ -48,25 +48,33 @@ def makeQualifiers(match):
 		#	return q
 		q = re.sub('/\*(.*)\*/','',q)			# take out comments like /* something */
 		original = re.sub('/\*(.*)\*/','',original)	# take out comments like /* something */
-		if debug: print(q, file=sys.stderr)
+		if debug: print("a "+q, file=sys.stderr)
 		q = re.sub('\(','{',q)
 		q = re.sub('\)','}',q)
-		if debug: print(q, file=sys.stderr)
-		q = re.sub('=\s*([^",]+)\s*(,|$)',r'="\1"\2',q)
-		if debug: print(q, file=sys.stderr)
+		if debug: print("b "+q, file=sys.stderr)
+		q = re.sub('=\s*([^{}",]+)\s*(}|,)',r'="\1"\2',q)
+		if debug: print("c "+q, file=sys.stderr)
 		#q = re.sub('(\"[^:][^"]+\")([^:])',r'"STRING"\2',q)
 		#q = re.sub('(\"[^:,]?[^",]+\")',r'"STRING"',q)
 		q = re.sub('(\"[^:,]?[^"]+\")',r'"STRING"',q)
-		if debug: print(q, file=sys.stderr)
+		if debug: print("d "+q, file=sys.stderr)
 		q = re.sub('([\w]*)\s*=',r'"\1":',q)
-		if debug: print(q, file=sys.stderr)
+		if debug: print("e "+q, file=sys.stderr)
 		q = re.sub('([\w]+)\s*(}|,|$)',r'"\1":null\2',q)
-		if debug: print(q, file=sys.stderr)
+		if debug: print("x "+q, file=sys.stderr)
+		q = re.sub('([:,])\s',r'\1',q)
+		if debug: print("y "+q, file=sys.stderr)
+		q = re.sub('(,)(\"\w+\")(}$)',r'\1\2:null\3',q)
+		if debug: print("z "+q, file=sys.stderr)
+		q = re.sub('([^:])(\"\w+\")(}|,|$)',r'\1\2:null\3',q)
+		if debug: print("f "+q, file=sys.stderr)
 		q = re.sub('(/\*.*\*/)','',q);
-		if debug: print(q, file=sys.stderr)
+		if debug: print("g "+q, file=sys.stderr)
+		q = re.sub('([^{}:,]+):([^{}:,]+):null',r'\1:\2',q);
+		if debug: print("h "+q, file=sys.stderr)
 		q = '{'+q+'}'
 		#print(filename, file=sys.stderr)
-		if debug: print(q, file=sys.stderr)
+		if debug: print("w "+q, file=sys.stderr)
 		j = json.loads(q)
 		#print(j)
 		k = list({ele for ele in j if j[ele] is None})
@@ -96,18 +104,21 @@ def makeMetas(match):
 		if debug: print("1 "+q, file=sys.stderr)
 		#q = re.sub('(\"[^:][^"]+\")([^:])',r'"STRING"\2',q)
 		#q = re.sub('(\"[^:,]?[^",]+\")',r'"STRING"',q)
-		#q = re.sub('(\"[^:,]?[^"]+\")',r'"STRING"',q)
-		#if debug: print("2 "+q, file=sys.stderr)
+		q = re.sub('(\"[^:,]?[^"]+\")',r'"STRING"',q)
+		if debug: print("2 "+q, file=sys.stderr)
 		q = re.sub('([\w]*)\s*=',r'"\1":',q)
+		#q = re.sub('([^\W\=]*)\s*=',r'"\1":',q)
 		if debug: print("3 "+q, file=sys.stderr)
 		#q = re.sub('"?([\w]+)"?\s*(}|,|$)',r'"\1":null\2',q)
 		#q = re.sub('"?([\w]+)"?\s*(}|,|$)',r'"\1":null\2',q)
 		q = re.sub('(?<!:)\s"([^":]+)"\s*(}|,|$)',r'"\1":null\2',q)
 		if debug: print("4 "+q, file=sys.stderr)
-		q = re.sub(r'^(["\'][^":]*["\'])$',r'\1:null',q);
+		q = re.sub(r'^(["\'][^":]*["\'])$',r'\1:null',q)
 		if debug: print("5 "+q, file=sys.stderr)
-		q = re.sub('(/\*.*\*/)','',q);
+		q = re.sub('(/\*.*\*/)','',q)
 		if debug: print("6 "+q, file=sys.stderr)
+		q = re.sub('^([^"]*)$',r'"\1":null',q)
+		if debug: print("7 "+q, file=sys.stderr)
 		q = '{'+q+'}'
 		#print(filename, file=sys.stderr)
 		if debug: print(q, file=sys.stderr)
@@ -143,6 +154,8 @@ try:
 
 	regex2 = '(\s*)((?:'+macros2+')\s*\('+paren_matcher(25)+'\))'
 	content = re.sub(regex2, makeMetas, content, flags=re.MULTILINE)
+
+	content = re.sub("(GENERATED.*DY)\(\)\r?\n",r"\1();\n",content, flags=re.MULTILINE)
 except Exception as e:
 	print("Error on: "+filename, file=sys.stderr)
 	raise
