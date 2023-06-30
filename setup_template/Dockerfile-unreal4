@@ -103,14 +103,14 @@ WORKDIR	/build
 COPY	. .
 
 # grab the documentation (fake C++ files) we generated above
-COPY	--from=ue4 $OUTPUT_DIR documentation/
+COPY	--from=ue4 $OUTPUT_DIR documentation/generated
 
 # check to see it all got there
-RUN	ls -al /build/documentation
+#RUN	ls -al /build/documentation
 
 # stats
-RUN	df -h
-RUN	free -h
+#RUN	df -h
+#RUN	free -h
 #RUN	doxygen -v	# confirm doxygen version from docs-docker-base
 
 # ensure the doxygen stuff is most up to date
