@@ -124,6 +124,7 @@ RUN	git submodule set-branch --branch main documentation/docs-doxygen && \
 # actually do the doxygen build, and move the output to our nginx (sub)folder
 RUN	./documentation/build.sh && \
 	eval "$(cat ./documentation/env.sh | grep "PROJECT_URL")" && \
+	mkdir -p /var/www/html && \
 	mv ./documentation/html /var/www/html/$PROJECT_URL
 	#mkdir -p /var/www/html/$PROJECT_URL && \
 	#cp -r ./documentation/html/* /var/www/html/$PROJECT_URL
