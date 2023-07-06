@@ -18,9 +18,11 @@ RUN	git submodule set-branch --branch main documentation/docs-doxygen && \
 #ADD	$CACHEBREAKER skipcache
 
 RUN	./documentation/build.sh && \
-	eval "$(cat ./documentation/env.sh | grep "PROJECT_URL")" && \
-	mkdir -p /var/www/html/$PROJECT_URL && \
-	cp -r ./documentation/html/* /var/www/html/$PROJECT_URL
+	eval "$(cat ./documentation/env.sh | grep PROJECT_URL)" && \
+	mkdir -p /var/www/html && \
+	mv ./documentation/html /var/www/html/$PROJECT_URL
+	#mkdir -p /var/www/html/$PROJECT_URL && \
+	#cp -r ./documentation/html/* /var/www/html/$PROJECT_URL
 
 #ENTRYPOINT ["/docker-entrypoint.sh"]
 #CMD	["nginx", "-g", "daemon off;"]
