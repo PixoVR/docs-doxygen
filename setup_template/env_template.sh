@@ -5,7 +5,7 @@ export MENU_WEIGHT=100							# a sort index which will be applied before alphabe
 export PROJECT_VERSION=`cd ../; git tag | tail -n 1`			# the last tagged version
 export PROJECT_BRIEF='Documentation for the Xyzproject C++ Library'	# a brief description of the SDK or module
 export PROJECT_STATUS='active'						# project status, for publishing.  Recognized choices are 'active' (default if not present), 'inactive' (invisible and won't appear in the documentation menu), 'deprecated' (visible in menu, but marked deprecated)
-export PROJECT_LOGO='docs-doxygen/doxygen-custom/defaultIcon.png'	# an icon for the submodule, or 'docs-doxygen/doxygen-custom/defaultIcon.png'.  Path is relative to the folder containing `build.sh`.
+export PROJECT_LOGO='docs-doxygen/doxygen-custom/defaultIcon.png'	# an icon for the submodule, or 'docs-doxygen/doxygen-custom/defaultIcon.png'.  Path is relative to the folder containing `build.sh`.  Should be 128x128 transparent png, probably round shaped.
 export PROJECT_REPO='https://github.com/PixoVR/somerepo'		# the project repo url, for cloning
 export PROJECT_URL='/SomeSDK-Target'					# subfolder used for documentation: 'https://docs.pixovr.com/SomeSDK-Target', like 'ApexSDK-Unreal'
 export DEV_PROJECT_URL='../../../../Unreal/SomeSDK-Target/documentation/html'	# a url for local development, which is used when `docs-root` is publishing on a local system via `DEV=true ./build.sh`.  This will usually just be to replace `SomeSDK-Target` with the repo name.
