@@ -11,6 +11,7 @@ set -e
 
 git clone --recurse-submodules https://gitlab.com/graphviz/graphviz.git
 cd graphviz
+#git lfs fetch
 
 mkdir build
 cd build
