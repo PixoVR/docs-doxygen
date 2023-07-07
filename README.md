@@ -1,6 +1,15 @@
 # docs-doxygen 
 
-Doxygen submodule for inclusion in SDKs that want documentation published using https://github.com/PixoVR/docs-root.
+Doxygen submodule for inclusion in SDKs that want documentation published to https://docs.pixovr.com.
+
+This uses:
+ - https://github.com/PixoVR/docs-doxygen
+ - https://github.com/PixoVR/docs-docker-base
+ - https://github.com/PixoVR/docs-root
+ - https://github.com/PixoVR/docs-docker-ue4-base (optional)
+ - https://github.com/PixoVR/docs-docker-ue5-base (optional)
+
+To actually arrive at https://docs.pixovr.com will require an administrator to add entries to the web server(s) involved.
 
 ## Usage
 
