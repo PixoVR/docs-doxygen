@@ -65,6 +65,13 @@ else
 	cp -rv setup_template/examples ../ | prefix
 fi
 
+if [ -f "../style.css" ]; then
+	echo "Skipping existing style.css..."
+else
+	echo "Copying style.css..."
+	cp -v setup_template/style.css ../ | prefix
+fi
+
 if [ -d "../pages" ]; then
 	echo "Skipping existing pages/ folder..."
 else
