@@ -13,14 +13,14 @@ git clone --recurse-submodules https://gitlab.com/graphviz/graphviz.git
 cd graphviz
 #git lfs fetch
 
-mkdir build
-cd build
-cmake ../
+#mkdir build
+#cd build
+#cmake ../
+
+./autogen.sh
+./configure --enable-static
+
 make -j 8
-./cmd/dot/dot -V
-
-ldd ./cmd/dot/dot
-
 make install
 
 #cp ./cmd/dot/dot /usr/local/bin/dot
