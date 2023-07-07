@@ -19,14 +19,15 @@ make -j 8
 #ln -s $PWD/bin/doxygen /usr/local/bin/doxygen
 cp bin/doxygen /usr/local/bin/doxygen
 
-cd $DIR
 
 # delete build folder
+cd $DIR
 rm -rf doxygen
 
 echo "Doxygen version: `doxygen -v`"
 
 # because windows fileshares don't always keep permissions
+cd $DIR
 chmod 755 scripts/* 
 
 
