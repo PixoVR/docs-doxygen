@@ -18,7 +18,7 @@ cmake ../
 make -j 8
 make install
 
-cp ./cmd/dot/dot /usr/local/bin/dot
+#cp ./cmd/dot/dot /usr/local/bin/dot
 
 # cleanup
 cd $DIR
