@@ -17,6 +17,7 @@ mkdir build
 cd build
 cmake ../
 make -j 8
+./cmd/dot/dot -V
 make install
 
 #cp ./cmd/dot/dot /usr/local/bin/dot
