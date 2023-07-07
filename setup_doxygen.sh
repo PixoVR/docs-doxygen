@@ -19,17 +19,15 @@ make -j 8
 #ln -s $PWD/bin/doxygen /usr/local/bin/doxygen
 cp bin/doxygen /usr/local/bin/doxygen
 
-cd $DIR
 
 # delete build folder
+cd $DIR
 rm -rf doxygen
 
 echo "Doxygen version: `doxygen -v`"
 
 # because windows fileshares don't always keep permissions
+cd $DIR
 chmod 755 scripts/* 
 
-# nginx
-#cp nginx.conf /etc/nginx/		# copied in docs-doxygen/Dockerfile.  Don't copy it here.
-#rm /etc/nginx/conf.d/default.conf	# done in Dockerfile
 

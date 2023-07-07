@@ -8,7 +8,7 @@ export PROJECT_STATUS='active'						# project status, for publishing.  Recognize
 export PROJECT_LOGO='docs-doxygen/doxygen-custom/defaultIcon.png'	# an icon for the submodule, or 'docs-doxygen/doxygen-custom/defaultIcon.png'.  Path is relative to the folder containing `build.sh`.
 export PROJECT_REPO='https://github.com/PixoVR/somerepo'		# the project repo url, for cloning
 export PROJECT_URL='/SomeSDK-Target'					# subfolder used for documentation: 'https://docs.pixovr.com/SomeSDK-Target', like 'ApexSDK-Unreal'
-export DEV_PROJECT_URL='../../../../Unreal/SomeSDK-Target/documentation/html/index.html'	# a url for local development, which is used when `docs-root` is publishing on a local system via `DEV=true ./build.sh`.  This will usually just be to replace `SomeSDK-Target` with the repo name.
+export DEV_PROJECT_URL='../../../../Unreal/SomeSDK-Target/documentation/html'	# a url for local development, which is used when `docs-root` is publishing on a local system via `DEV=true ./build.sh`.  This will usually just be to replace `SomeSDK-Target` with the repo name.
 export PROJECT_MAIN_PAGE='../pages/mainpage.md'				# the main home markdown page for the documentation
 
 export DOXYGEN_FILTER='scripts/unreal_filter.py'			# a script filter for interpreting the code (adds stuff like decorators or macros)
