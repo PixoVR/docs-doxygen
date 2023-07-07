@@ -13,9 +13,9 @@ To actually arrive at https://docs.pixovr.com will require an administrator to a
 
 ## Usage
 
-To use this, create a `documentation` folder at the root of your SDK (sub)module.
+Create a `documentation` folder at the root of your repository.
 
-In the `documentation` folder, clone this repository:
+In the new `documentation` folder, clone this repository:
 
 `git submodule add https://github.com/PixoVR/docs-doxygen.git`
 
