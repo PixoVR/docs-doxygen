@@ -20,7 +20,7 @@ make install
 
 # cleanup
 cd $DIR
-rm -rv graphviz
+rm -rf graphviz
 
 dot -V
 
