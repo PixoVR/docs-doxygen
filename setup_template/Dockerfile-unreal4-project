@@ -18,14 +18,16 @@ ARG	UE_PROJECT
 WORKDIR /project
 
 # sup cachebreaker
-#ADD	$CACHEBREAKER skipcache24
+ADD	$CACHEBREAKER skipcache24
 
 # startup stats
 #RUN	free -h
 #RUN	df -h
 
 # copy/move the documentation plugin to a temp location
-RUN	cp -rf /project/project/Plugins/pixo-unreal-documentation /tmp/pixo-unreal-documentation
+RUN	cd /project/project/Plugins/pixo-unreal-documentation && \
+	git pull origin main && \
+	cp -rf /project/project/Plugins/pixo-unreal-documentation /tmp/pixo-unreal-documentation
 
 # Copy this project into the `/project` folder.
 COPY	--chown=ue4:ue4 . /project
@@ -43,9 +45,6 @@ RUN	if [ -d "/project/Plugins/pixo-unreal-documentation" ] ; then \
 # This is for updating pixo-unreal-documentation to latest on main
 RUN	cd /project && \
 	git submodule update --init --recursive && \
-	cd /project/Plugins/pixo-unreal-documentation && \
-	git pull origin main && \
-	cd /project/ && \
 	git lfs pull
 
 # Ensure that our output directory exists.
