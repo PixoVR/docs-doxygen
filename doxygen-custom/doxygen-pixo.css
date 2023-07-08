@@ -311,6 +311,13 @@ svg .node > g > a > g:hover [fill="transparent"]
 	stroke: none;
 }
 
+.dyncontent > .center
+{
+	box-shadow: inset 0px 0px 14px rgba(0 0 0 / .2);
+	background-color: var(--code-background);
+	max-height: 75vh;
+}
+
 .dotgraph
 {
 	box-shadow: inset 0px 0px 14px rgba(0 0 0 / .2);
@@ -351,6 +358,7 @@ html.dark-mode .dotgraph
 	}
 }
 
+.dyncontent::-webkit-scrollbar-corner,
 .dotgraph::-webkit-scrollbar-corner
 {
 	background-color: transparent;
