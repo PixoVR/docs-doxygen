@@ -18,7 +18,7 @@ images:
 
 timeout: 7200s
 options:
-  diskSizeGb: '200'
+  diskSizeGb: '400'
   machineType: E2_HIGHCPU_8
 
 substitutions:
