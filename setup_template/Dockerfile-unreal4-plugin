@@ -67,19 +67,24 @@ RUN	RunUAT.sh BuildEditor \
 # https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/CommandLineArguments/
 RUN	eval "$(cat /project/project/Plugins/plugin/documentation/env.sh | grep "UNREAL_UFS_PATHS")" && \
 	export LD_LIBRARY_PATH=$UE_DIR/Engine/Binaries/Linux/Android && \
-	UE4Editor-Cmd $UE_PROJECT \
-	-nullrhi \
-	-nosplash \
-	-unattended \
-	-nosound \
-	-auto \
-	-useallavailablecores \
-	-LogCmds="global Warning, LOG_DOT all" \
-	-NoLogTimes \
-	-run=PixoDocumentation \
-	-OutputMode=doxygen \
-	-OutputDir=$OUTPUT_DIR \
-	-Include=$UNREAL_UFS_PATHS
+	( \
+	  UE4Editor-Cmd $UE_PROJECT \
+	  -nullrhi \
+	  -nosplash \
+	  -unattended \
+	  -nosound \
+	  -auto \
+	  -useallavailablecores \
+	  -LogCmds="global Warning, LOG_DOT all" \
+	  -NoLogTimes \
+	  -run=PixoDocumentation \
+	  -OutputMode=doxygen \
+	  -OutputDir=$OUTPUT_DIR \
+	  -Include=$UNREAL_UFS_PATHS \
+	|| \
+	  echo "Exiting with warnings, but will parse what we have." \
+	)
+
 
 # check to see it all got there
 #RUN	ls -al $OUTPUT_DIR
