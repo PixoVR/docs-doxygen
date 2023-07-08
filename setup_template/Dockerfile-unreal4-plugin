@@ -74,7 +74,7 @@ RUN	eval "$(cat /project/project/Plugins/plugin/documentation/env.sh | grep "UNR
 	-nosound \
 	-auto \
 	-useallavailablecores \
-	-LogCmds="global none, LOG_DOT all" \
+	-LogCmds="global Warning, LOG_DOT all" \
 	-NoLogTimes \
 	-run=PixoDocumentation \
 	-OutputMode=doxygen \

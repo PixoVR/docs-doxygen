@@ -71,7 +71,7 @@ RUN	eval "$(cat /project/documentation/env.sh | grep UNREAL_UFS_PATHS)" && \
 	-nosound \
 	-auto \
 	-useallavailablecores \
-	-LogCmds="global errors, LOG_DOT all" \
+	-LogCmds="global Warning, LOG_DOT all" \
 	-NoLogTimes \
 	-run=PixoDocumentation \
 	-OutputMode=doxygen \
