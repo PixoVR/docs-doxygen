@@ -394,6 +394,17 @@ ul li
 	}
 }
 
+/* 
+	Hide the list of names before the gallery.
+
+	This has the unintended side effect of hiding the link
+	for anything that doesn't have an image.
+*/
+table.memberdecls:has(~ .gallery),
+div.contents > p:first-child:has(~ .gallery) {
+    display: none;
+}
+
 div.gallery
 {
 	Xdisplay: flex;
