@@ -152,6 +152,8 @@ iframe
 	filter: hue-rotate(180deg);
 }
 
+
+
 div.contents, div.header .title, div.header .summary
 {
 	Xmax-width: var(--content-maxwidth);
@@ -316,6 +318,11 @@ svg .node > g > a > g:hover [fill="transparent"]
 	box-shadow: inset 0px 0px 14px rgba(0 0 0 / .2);
 	background-color: var(--code-background);
 	max-height: 75vh;
+}
+
+.dyncontent > .center > iframe
+{
+	filter: drop-shadow(3px 3px 3px rgb(0.2 0.2 0.2 / 0.3));
 }
 
 .dotgraph
