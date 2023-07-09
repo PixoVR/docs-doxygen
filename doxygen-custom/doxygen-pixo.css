@@ -49,7 +49,8 @@ html.dark-mode div.contents center iframe,
 html.dark-mode div.contents table iframe,
 html.dark-mode div.contents .dotgraph iframe
 {
-	filter: brightness(85%) hue-rotate(0deg) invert();
+	Xfilter: brightness(85%) hue-rotate(0deg) invert();
+	filter: brightness(85%) hue-rotate(0deg) invert() drop-shadow(3px 3px 3px rgb(0.2 0.2 0.2 / 0.3));
 }
 
 html .mlabels .mlabel,
@@ -149,7 +150,8 @@ html.dark-mode .icona .icon
 iframe
 {
 	padding: 20px;
-	filter: hue-rotate(180deg);
+	Xfilter: hue-rotate(180deg);
+	filter: hue-rotate(180deg) drop-shadow(3px 3px 3px rgb(0.2 0.2 0.2 / 0.3));
 }
 
 
@@ -322,7 +324,7 @@ svg .node > g > a > g:hover [fill="transparent"]
 
 .dyncontent > .center > iframe
 {
-	filter: hue-rotate(180deg) drop-shadow(3px 3px 3px rgb(0.2 0.2 0.2 / 0.3));
+	Xfilter: hue-rotate(180deg) drop-shadow(3px 3px 3px rgb(0.2 0.2 0.2 / 0.3));
 }
 
 .dotgraph
