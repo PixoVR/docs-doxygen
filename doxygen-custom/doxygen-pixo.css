@@ -322,7 +322,7 @@ svg .node > g > a > g:hover [fill="transparent"]
 
 .dyncontent > .center > iframe
 {
-	filter: drop-shadow(3px 3px 3px rgb(0.2 0.2 0.2 / 0.3));
+	filter: hue-rotate(180deg) drop-shadow(3px 3px 3px rgb(0.2 0.2 0.2 / 0.3));
 }
 
 .dotgraph
