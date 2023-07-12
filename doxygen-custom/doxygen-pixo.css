@@ -367,7 +367,8 @@ html.dark-mode .dotgraph
 	}
 }
 
-.dyncontent::-webkit-scrollbar-corner,
+/* .dyncontent::-webkit-scrollbar-corner, */
+.dyncontent div.center::-webkit-scrollbar-corner,
 .dotgraph::-webkit-scrollbar-corner
 {
 	background-color: transparent;
