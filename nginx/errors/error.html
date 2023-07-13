@@ -115,13 +115,11 @@
 		</style>
 	</head>
 	<body>
-		<div class='errorNum'>404</div>
+		<div class='errorNum'><!--# echo var="status" default="XXX" --></div>
 		<!-- https://blog.x-way.org/Webdesign/2022/06/19/Custom-nginx-error-pages.html -->
 		<div class='errorText'>
-			<div class='statuscode'>404</div>
-			<div class='statusmessage'>Not Found</div>
-			<!--# echo var="status" default="" --> 
-			<!--# echo var="status_text" default="Something went wrong" -->
+			<div class='statuscode'><!--# echo var="status" default="XXX" --></div>
+			<div class='statusmessage'><!--# echo var="status_text" default="Unknown Error" --></div>
 		</div>
 		<div class='home'>
 			<a href='/'>
