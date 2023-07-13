@@ -66,30 +66,29 @@
 
 			.statuscode
 			{
-				display: inline-block;
-				Xfloat: left;
-
-				font-size: 2vmax;
+				font-size: 5vmax;
 				font-weight: bold;
 
-				Xbackground: #222222;
-				background: #ff8c3a;
+				background-color: #ff8c3a;
 				border: 0.1vmax solid white;
 				padding: 0.3vmax 0.5vmax;
 				border-radius: 0.5vmax;
-				color: #000;
 
-				Xbox-shadow: 0.2vmax 0.2vmax 0.3vmax black;
+				background-image: var(--bgimage);
+				background-blend-mode: difference;
+				background-size: 100%;
+
 				box-shadow: inset 0.3vmax 0.3vmax 0.9vmax rgba(0,0,0,.4);
 				text-shadow: 0.2vmax 0.2vmax 0.3vmax rgba(0,0,0,.4);
 			}
 
 			.statusmessage
 			{
-				display: inline-block;
+				padding-top: 1vmax;
+				min-width: 16vmax;
 
-				font-size: 2vmax;
-				padding-left: 0.5vmax;
+				font-size: 1.5vmax;
+				text-align: right;
 			}
 
 			.home
