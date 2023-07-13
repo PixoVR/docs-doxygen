@@ -117,6 +117,7 @@ RUN	free -h
 
 # ensure the doxygen stuff is most up to date
 RUN	git submodule set-branch --branch main documentation/docs-doxygen && \
+	cd documentation/docs-doxygen && git pull origin main && cd ../../ && \
 	git submodule update --init documentation/docs-doxygen && \
 	git submodule update --init --recursive && \
 	git tag

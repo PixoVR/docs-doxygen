@@ -120,6 +120,7 @@ COPY	--from=ue4 $OUTPUT_DIR documentation/generated
 
 # ensure the doxygen stuff is most up to date
 RUN	git submodule set-branch --branch main documentation/docs-doxygen && \
+	cd documentation/docs-doxygen && git pull origin main && cd ../../ && \
 	git submodule update --init documentation/docs-doxygen && \
 	git tag
 
