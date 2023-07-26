@@ -345,7 +345,10 @@ OPTIMIZE_OUTPUT_SLICE  = NO
 #EXTENSION_MAPPING     = js=Javascript \
 #			css=xml \
 #			xml=xml
-EXTENSION_MAPPING     = xml=xml
+EXTENSION_MAPPING     = xml=xml \
+			uplugin=md \
+			uproject=md
+
 
 # If the MARKDOWN_SUPPORT tag is enabled then doxygen pre-processes all comments
 # according to the Markdown format, which allows for more readable
@@ -1002,7 +1005,9 @@ FILE_PATTERNS          = *.c \
                          *.ucf \
                          *.qsf \
                          *.ice \
-                         *.xml
+                         *.xml \
+                         *.uproject \
+                         *.uplugin
 
 # The RECURSIVE tag can be used to specify whether or not subdirectories should
 # be searched for input files as well.
@@ -1017,9 +1022,9 @@ RECURSIVE              = YES
 # Note that relative paths are relative to the directory from which doxygen is
 # run.
 
-#EXCLUDE                = "../../documentation" \
-#			$(DOXYGEN_EXCLUDE)
-EXCLUDE                = $(DOXYGEN_EXCLUDE)
+EXCLUDE                = "../../documentation/docs-doxygen" \
+			$(DOXYGEN_EXCLUDE)
+#EXCLUDE                += $(DOXYGEN_EXCLUDE)
 
 # The EXCLUDE_SYMLINKS tag can be used to select whether or not files or
 # directories that are symbolic links (a Unix file system feature) are excluded
@@ -1118,7 +1123,9 @@ INPUT_FILTER           = $(DOXYGEN_FILTER)
 # properly processed by doxygen.
 
 FILTER_PATTERNS       = *.js=scripts/javascriptFilter.bash \
-			*.md=scripts/markdownFilter.bash
+			*.md=scripts/markdownFilter.bash \
+			*.uproject=scripts/unreal_project_filter.bash \
+			*.uplugin=scripts/unreal_project_filter.bash
 
 # If the FILTER_SOURCE_FILES tag is set to YES, the input filter (if set using
 # INPUT_FILTER) will also be used to filter the input files that are used for
