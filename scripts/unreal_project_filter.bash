@@ -21,16 +21,6 @@ TITLE="Unknown File"
 #CONFIG_MD="pages/generated_configs.dox"
 #flock -e ${CONFIG_MD}.lock $DIR/append_config_doc.bash $CONFIG_MD $PAGENAME
 
-if [[ "$INFILE" =~ ^.*\.uplugin$ ]]
-then
-	TITLE="The .uplugin File"
-elif [[ "$INFILE" =~ ^.*\.uproject$ ]]
-then
-	TITLE="The .uproject File"
-else
-	cat $INFILE && exit 0
-fi
-
 echo "\\page $PAGENAME $FILENAME"
 #echo "Some stuff about the $FILENAME config file."
 #echo $INFILE
