@@ -2,30 +2,39 @@
 
 INFILE=$1
 
-if [[ "$INFILE" == "" ]]; then
+if [[ "$INFILE" == "" ]]
+then
 	exit 0
 fi
 
+echo "Filtering '$INFILE'..." 1>&2
+
+DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+cd $DIR/../../
+
 FILENAME=`basename $INFILE`
-PAGENAME=`echo $FILENAME | perl -pe "s/[^\w]/_/"`
+PAGENAME=generated_`echo -n $FILENAME | perl -pe "s/[^\w]/_/g"`
 TITLE="Unknown File"
 
-if [[ "$INFILE" =~ ^.*\.uplugin$ ]]; then
+# this won't work because doxygen's preparser will not see the results...
+# it will parse the generated file before it has been generated.
+#CONFIG_MD="pages/generated_configs.dox"
+#flock -e ${CONFIG_MD}.lock $DIR/append_config_doc.bash $CONFIG_MD $PAGENAME
 
+if [[ "$INFILE" =~ ^.*\.uplugin$ ]]
+then
 	TITLE="The .uplugin File"
-
-elif [[ "$INFILE" =~ ^.*\.uproject$ ]]; then
-
-	TITLE="The .uroject File"
-
+elif [[ "$INFILE" =~ ^.*\.uproject$ ]]
+then
+	TITLE="The .uproject File"
 else
 	cat $INFILE && exit 0
 fi
 
-#echo "\\page $PAGENAME $TITLE"
 echo "\\page $PAGENAME $FILENAME"
-#echo "## $FILENAME"
+#echo "Some stuff about the $FILENAME config file."
+#echo $INFILE
+echo
 echo "\\code{.xml}"
 cat $INFILE
 echo "\\endcode"
-
