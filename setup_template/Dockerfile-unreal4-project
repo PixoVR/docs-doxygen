@@ -4,7 +4,6 @@ ARG	CACHEBREAKER=https://www.random.org/cgi-bin/randbyte?nbytes=10&format=h
 
 # Vars needed for the commandlet and build calls below.
 # https://stackoverflow.com/questions/44438637/arg-substitution-in-run-command-not-working-for-dockerfile
-ARG	UE_PROJECT=/project/CFA.uproject
 ARG	OUTPUT_DIR=/tmp/generated
 
 # Built from https://github.com/PixoVR/docs-docker-ue4-base
@@ -13,7 +12,6 @@ FROM	gcr.io/pixo-bootstrap/docs-docker-ue4-base:latest as ue4
 # because of FROM, we have to re-mention our vars
 ARG	CACHEBREAKER
 ARG	OUTPUT_DIR
-ARG	UE_PROJECT
 
 WORKDIR /project
 
@@ -52,8 +50,9 @@ RUN	mkdir -p ${OUTPUT_DIR}
 
 # Build any un-compiled plugins, which will probably be all of them.
 # This builds the plugin(s) contained in this repo/project as well as the pixo-unreal-documentation plugin.
-RUN	RunUAT.sh BuildEditor \
-	-project=$UE_PROJECT \
+run	eval "$(cat /project/documentation/env.sh | grep UNREAL_PROJECT)" && \
+	RunUAT.sh BuildEditor \
+	-project=$UNREAL_PROJECT \
 	-notools
 
 # stats
@@ -63,9 +62,10 @@ RUN	RunUAT.sh BuildEditor \
 # Generate the plugin cpp files from the commandlet.
 # https://docs.unrealengine.com/4.27/en-US/ProductionPipelines/CommandLineArguments/
 RUN	eval "$(cat /project/documentation/env.sh | grep UNREAL_UFS_PATHS)" && \
+	eval "$(cat /project/documentation/env.sh | grep UNREAL_PROJECT)" && \
 	export LD_LIBRARY_PATH=$UE_DIR/Engine/Binaries/Linux/Android && \
 	( \
-	  UE4Editor-Cmd $UE_PROJECT \
+	  UE4Editor-Cmd $UNREAL_PROJECT \
 	  -nullrhi \
 	  -nosplash \
 	  -unattended \
