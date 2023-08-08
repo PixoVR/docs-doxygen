@@ -42,19 +42,22 @@ By default, the doxygen parser will scan the folders pointed to in `env.sh` for 
 
 It can be useful to include Unreal's blueprints and materials in the documentation output.
 
-To do this, replace the Dockerfile copied by `setup_submodule.sh` to `documentation/Dockerfile` with the `documentation/docs-doxygen/setup_template/Dockerfile-unreal4` file:
+To do this, replace the Dockerfile copied by `setup_submodule.sh` to `documentation/Dockerfile` with the `documentation/docs-doxygen/setup_template/Dockerfile-unreal[45]-[plugin|project]` file:
 
 ```
+# for a UE4 plugin:
 cd documentation/
-cp docs-doxygen/setup_template/Dockerfile-unreal4 ./Dockerfile
+cp docs-doxygen/setup_template/Dockerfile-unreal4-plugin ./Dockerfile
 ```
 
-Note that the `Dockerfile` is pointed to in the `cloudbuild.yaml` file, so the name must match.
+Note that the `Dockerfile` is pointed to in the `cloudbuild.yaml` file, so the name must match, which is why we replace the existing one.
 
-`Dockerfile-unreal4` will use the Unreal plugin `https://github.com/PixoVR/pixo-unreal-documentation` and the base image built from `https://github.com/PixoVR/docs-docker-ue4-base`.
+`Dockerfile-unreal4-*` will use the Unreal plugin `https://github.com/PixoVR/pixo-unreal-documentation` and the base image built from `https://github.com/PixoVR/docs-docker-ue4-base`.  Similarly, `Dockerfile-unreal5-*` will do the same for UE5.
 
 If this is being used to document an Unreal plugin, this will mount the plugin into a hidden skeleton project, compile it, and then parse the UFS tree for `.uasset` entries containing Blueprints and Materials, and output fake C++ files to a `generated` folder.
 
+If this is being used to document a project, this will add the `pixo-unreal-documentation` to the project on the cloudbuild server, compile it, and run the commandlet to generate fake C++ files to `generated` for documentation.
+
 Then, doxygen parses these fake C++ files along with the rest of the source, as if those files are native to the source.  Those files are not committed back to the original repository.
 
-
+**Please Note:** in any case, it is required that your repository compile in a linux environment, which can be more strict than windows.  For instance, iterated `for` loops in C++ must not use copy semantics, they must use references.  If the project documentation is failing to update, ask an administrator to look at the cloudbuild logs for compiler errors.
