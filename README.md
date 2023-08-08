@@ -56,7 +56,7 @@ Note that the `Dockerfile` is pointed to in the `cloudbuild.yaml` file, so the n
 
 If this is being used to document an Unreal plugin, this will mount the plugin into a hidden skeleton project, compile it, and then parse the UFS tree for `.uasset` entries containing Blueprints and Materials, and output fake C++ files to a `generated` folder.
 
-If this is being used to document a project, this will add the `pixo-unreal-documentation` to the project on the cloudbuild server, compile it, and run the commandlet to generate fake C++ files to `generated` for documentation.  The new plugin is not committed to the repository.
+If this is being used to document a project, this will add the `pixo-unreal-documentation` to the project on the cloudbuild server, compile it, and run the commandlet to generate fake C++ files to `generated` for documentation.  The new plugin is not committed to the repository, and the script checks if the plugin is already included.  Some projects may choose to document locally, so including the `pixo-unreal-documentation` as a submodule can be helpful.
 
 Then, doxygen parses these fake C++ files along with the rest of the source, as if those files are native to the source.  Those files are not committed back to the original repository.
 
