@@ -54,9 +54,9 @@ Note that the `Dockerfile` is pointed to in the `cloudbuild.yaml` file, so the n
 
 `Dockerfile-unreal4-*` will use the Unreal plugin `https://github.com/PixoVR/pixo-unreal-documentation` and the base image built from `https://github.com/PixoVR/docs-docker-ue4-base`.  `Dockerfile-unreal5-*` will use UE5.
 
-If this is being used to document an Unreal plugin, this will mount the plugin into a hidden skeleton project, compile it, and then parse the UFS tree for `.uasset` entries containing Blueprints and Materials, and output fake C++ files to a `generated` folder.
+If this is being used to document an Unreal plugin, this will mount the plugin into a hidden skeleton project, compile it, and then parse the UFS tree for `.uasset` entries containing Blueprints and Materials, and output fake C++ files to a `generated` folder.  **Please Note:** You must uncomment and set the `UNREAL_UFS_PATHS` variable in `env.sh` for this to be effective.
 
-If this is being used to document a project, this will add the `pixo-unreal-documentation` to the project on the cloudbuild server, compile it, and run the commandlet to generate fake C++ files to `generated` for documentation.  The new plugin is not committed to the repository, and the script checks if the plugin is already included.  Some projects may choose to document locally, so including the `pixo-unreal-documentation` as a submodule can be helpful.
+If this is being used to document a project, this will add the `pixo-unreal-documentation` to the project on the cloudbuild server, compile it, and run the commandlet to generate fake C++ files to `generated` for documentation.  The new plugin is not committed to the repository, and the script checks if the plugin is already included.  Some projects may choose to document locally, so including the `pixo-unreal-documentation` as a submodule can be helpful.  **Please Note:** You must uncomment and set the `UNREAL_PROJECT` and `UNREAL_UFS_PATHS` variables in `env.sh` for this to be effective.
 
 Then, doxygen parses these fake C++ files along with the rest of the source, as if those files are native to the source.  Those files are not committed back to the original repository.
 
