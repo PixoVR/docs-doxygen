@@ -30,6 +30,7 @@ In the `documentation/docs-doxygen` folder, run the `setup_submodule.sh` script 
  - Do a build with `./build.sh`, and view the documentation in the `html` folder using a local web browser.
  - Add your SDK to the `docs-root` repository, with this submodule added and committed.
  - Link the CI/CD tools with the `main` repository of your SDK, and make sure documentation changes are merged into the `main` branch.
+ - Note that you must have a `documentation/cloudbuild.yaml` file for the Google CI/CD, which will instruct the build and will be created automatically by `setup_submodule.sh`.  The only thing you may want to configure is the `diskSizeGb`  or `machineType`, which is going to be either `E2_HIGHCPU_8` or `E2_HIGHCPU_32`.
 
 Please note that you really don't want to change the contents of the `docs-doxygen` submodule for any individual implementation.  The `setup_submodule.sh` makes copies of scripts, files, and folders needed to customize any individual documentation implementation.  All changes can be made to the copies in this repo and in turn not committed to the `docs-doxygen` repo.
 
