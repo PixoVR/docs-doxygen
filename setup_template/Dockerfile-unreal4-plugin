@@ -119,10 +119,11 @@ COPY	--from=ue4 $OUTPUT_DIR documentation/generated
 #RUN	doxygen -v	# confirm doxygen version from docs-docker-base
 
 # ensure the doxygen stuff is most up to date
-RUN	git submodule set-branch --branch main documentation/docs-doxygen && \
-	cd documentation/docs-doxygen && git pull origin main && cd ../../ && \
-	git submodule update --init documentation/docs-doxygen && \
-	git tag
+RUN	cd /build && \
+	git submodule update --init --recursive && \
+	cd documentation/docs-doxygen && git pull origin main
+
+RUN	git fetch --tags
 
 # sup cachebreaker
 #ADD	$CACHEBREAKER skipcache22
