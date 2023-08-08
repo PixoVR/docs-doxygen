@@ -25,6 +25,6 @@ export DOXYGEN_CSS=''							# a list of css files to add.  Note that these are r
 #export APEX_SERVER_URL='https://apex.pixovr.com'
 
 # these are only useful when using the Dockerfile-unreal* stuff
-#export UNREAL_UFS_PATHS='/PixoCore,/PixoLobby'				# UFS input paths for publishing blueprints, materials, etc 
+#export UNREAL_UFS_PATHS='/Game'					# UFS input paths for publishing blueprints, materials, etc.  Probably '/Game' for .uproject, and a plugin-specific UFS path(s) for .uplugin(s)
 # only used for Dockerfile-unreal[45]-project
 #export UNREAL_PROJECT='/project/someproject.uproject			# UFS project to publish
