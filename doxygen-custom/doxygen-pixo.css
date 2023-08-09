@@ -169,12 +169,17 @@ div.contents p
 }
 */
 
+#projectalign
+{
+	max-width: 75px;
+}
+
 .select2-container
 {
 	box-sizing: unset;
 	z-index: 10000;
 	max-width:250px;
-	padding-top: 5px;
+	Xpadding-top: 5px;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
@@ -183,6 +188,9 @@ div.contents p
 	padding-left: 2px;
 	padding-top: 2px;
 	overflow: unset;
+
+	padding-top: 3px;
+	height: 32px;
 }
 
 .select2-container--default .select2-selection--single {
