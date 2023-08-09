@@ -173,6 +173,8 @@ div.contents p
 {
 	box-sizing: unset;
 	z-index: 10000;
+	max-width:250px;
+	padding-top: 5px;
 }
 
 .select2-container--default .select2-selection--single .select2-selection__rendered {
