@@ -32,8 +32,10 @@ COPY	--chown=ue4:ue4 . /project
 
 # move the documentation plugin back, unless it's already in the project
 RUN	if [ -d "/project/Plugins/pixo-unreal-documentation" ] ; then \
-		echo "Keeping existing pixo-unreal-documentation plugin..." && \
-		rm -rf /tmp/pixo-unreal-documentation; \
+		echo "Keeping existing pixo-unreal-documentation plugin, but updating it..." && \
+		rm -rf /tmp/pixo-unreal-documentation && \
+		cd /project/Plugins/pixo-unreal-documentation && \
+		git pull origin main; \
 	else \
 		cp -rf /tmp/pixo-unreal-documentation /project/Plugins/pixo-unreal-documentation && \
 		rm -rf /tmp/pixo-unreal-documentation; \
