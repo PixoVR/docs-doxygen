@@ -6,7 +6,7 @@ cd $DIR
 # exit on errors
 set -e
 
-git clone --recurse-submodules https://github.com/doxygen/doxygen.git
+git clone --branch Release_1_10_0 --recurse-submodules https://github.com/doxygen/doxygen.git
 cd doxygen
 
 mkdir build
