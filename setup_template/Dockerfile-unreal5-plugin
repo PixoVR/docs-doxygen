@@ -24,10 +24,15 @@ COPY	. .
 
 RUN	doxygen -v	# confirm doxygen version from docs-docker-base
 
-RUN	git submodule set-branch --branch main documentation/docs-doxygen && \
-	cd documentation/docs-doxygen && git pull origin main && cd ../../ && \
-	git submodule update --init documentation/docs-doxygen && \
-	git tag
+# Force fresh git operations to avoid cached states
+RUN	cd /build && \
+	git clean -fd && \
+	git submodule foreach --recursive 'git clean -fd' && \
+	git submodule sync --recursive && \
+	git submodule update --init --recursive --force && \
+	cd documentation/docs-doxygen && \
+	git fetch origin && \
+	git reset --hard origin/main
 
 ADD	$CACHEBREAKER skipcache22
 

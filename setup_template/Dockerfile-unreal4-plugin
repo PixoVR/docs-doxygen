@@ -18,7 +18,7 @@ ARG	UE_PROJECT
 WORKDIR /project
 
 # sup cachebreaker
-#ADD	$CACHEBREAKER skipcache24
+ADD	$CACHEBREAKER skipcache24
 
 # startup stats
 RUN	free -h
@@ -26,10 +26,14 @@ RUN	df -h
 
 # Make sure our submodules are up to date (and that our git auth is working)
 # This is for updating pixo-unreal-documentation to latest on main
+# Force fresh git operations to avoid cached states
 RUN	cd /project && \
-	git submodule update --init --recursive && \
+	git clean -fd && \
+	git submodule foreach --recursive 'git clean -fd' && \
+	git submodule update --init --recursive --force && \
 	cd /project/project/Plugins/pixo-unreal-documentation && \
-	git pull origin main && \
+	git fetch origin && \
+	git reset --hard origin/main && \
 	git lfs pull
 
 # Copy this plugin into the `Plugins` folder.
@@ -42,8 +46,12 @@ COPY	--chown=ue4:ue4 . /project/project/Plugins/plugin
 # We pull the submodule version(s) committed in the repo,
 # not necessarily the latest version committed.
 # We also do the LFS pull here, which will not have happened otherwise.
+# Force fresh submodule operations to avoid cached commit references
 RUN	cd /project/project/Plugins/plugin && \
-	git submodule update --init --recursive && \
+	git clean -fd && \
+	git submodule foreach --recursive 'git clean -fd' && \
+	git submodule sync --recursive && \
+	git submodule update --init --recursive --force && \
 	git lfs pull
 
 # stats
@@ -119,14 +127,20 @@ COPY	--from=ue4 $OUTPUT_DIR documentation/generated
 #RUN	doxygen -v	# confirm doxygen version from docs-docker-base
 
 # ensure the doxygen stuff is most up to date
+# Force fresh git operations to avoid cached states
 RUN	cd /build && \
-	git submodule update --init --recursive && \
-	cd documentation/docs-doxygen && git pull origin main
+	git clean -fd && \
+	git submodule foreach --recursive 'git clean -fd' && \
+	git submodule sync --recursive && \
+	git submodule update --init --recursive --force && \
+	cd documentation/docs-doxygen && \
+	git fetch origin && \
+	git reset --hard origin/main
 
 RUN	git fetch --tags
 
 # sup cachebreaker
-#ADD	$CACHEBREAKER skipcache22
+ADD	$CACHEBREAKER skipcache22
 
 # actually do the doxygen build, and move the output to our nginx (sub)folder
 RUN	./documentation/build.sh && \

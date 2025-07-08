@@ -13,9 +13,15 @@ RUN	doxygen -v	# confirm doxygen version from docs-docker-base
 ADD	$CACHEBREAKER skipcache
 
 # ensure the doxygen stuff is most up to date
+# Force fresh git operations to avoid cached states
 RUN	cd /build && \
-	git submodule update --init --recursive && \
-	cd documentation/docs-doxygen && git pull origin main
+	git clean -fd && \
+	git submodule foreach --recursive 'git clean -fd' && \
+	git submodule sync --recursive && \
+	git submodule update --init --recursive --force && \
+	cd documentation/docs-doxygen && \
+	git fetch origin && \
+	git reset --hard origin/main
 
 RUN	git fetch --tags
 
