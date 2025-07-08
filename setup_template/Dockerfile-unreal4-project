@@ -43,8 +43,11 @@ RUN	if [ -d "/project/Plugins/pixo-unreal-documentation" ] ; then \
 
 # Make sure our submodules are up to date (and that our git auth is working)
 # This is for updating pixo-unreal-documentation to latest on main
+# Force fresh git operations to avoid cached states
 RUN	cd /project && \
-	git submodule update --init --recursive && \
+	git clean -fd && \
+	git submodule foreach --recursive 'git clean -fd' && \
+	git submodule update --init --recursive --force && \
 	git lfs pull
 
 # Ensure that our output directory exists.
@@ -118,14 +121,20 @@ RUN	free -h
 #RUN	doxygen -v	# confirm doxygen version from docs-docker-base
 
 # ensure the doxygen stuff is most up to date
+# Force fresh git operations to avoid cached states
 RUN	cd /build && \
-	git submodule update --init --recursive && \
-	cd documentation/docs-doxygen && git pull origin main
+	git clean -fd && \
+	git submodule foreach --recursive 'git clean -fd' && \
+	git submodule sync --recursive && \
+	git submodule update --init --recursive --force && \
+	cd documentation/docs-doxygen && \
+	git fetch origin && \
+	git reset --hard origin/main
 
 RUN	git fetch --tags
 
 # sup cachebreaker
-#ADD	$CACHEBREAKER skipcache22
+ADD	$CACHEBREAKER skipcache22
 
 # actually do the doxygen build, and move the output to our nginx (sub)folder
 RUN	./documentation/build.sh && \
